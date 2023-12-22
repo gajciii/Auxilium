@@ -1,12 +1,40 @@
 package si.um.feri.ris.models;
+
+import jakarta.persistence.*;
+
+import java.util.Collection;
+import java.util.List;
+
+@Entity
 public class Donacija {
 
-	private double znesekDonacije;
-	private Uporabnik uporabnik;
+    @Id
+    @GeneratedValue
+    private long id;
 
-	public void izvediDonacijo() {
-		// TODO - implement Donacija.izvediDonacijo
-		throw new UnsupportedOperationException();
-	}
 
+    @ManyToMany(mappedBy = "donacije", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Oskodovanec> oskodovanci;
+
+    @ManyToMany(mappedBy = "donacije", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Uporabnik> uporabniki;
+
+    private double znesekDonacije;
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public double getZnesekDonacije() {
+        return znesekDonacije;
+    }
+
+    public void setZnesekDonacije(double znesekDonacije) {
+        this.znesekDonacije = znesekDonacije;
+    }
 }

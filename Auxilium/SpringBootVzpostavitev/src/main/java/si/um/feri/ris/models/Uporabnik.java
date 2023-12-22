@@ -1,33 +1,32 @@
 package si.um.feri.ris.models;
+import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import si.um.feri.ris.repository.ListNesrec;
 
 import java.util.List;
+@Entity
+public class Uporabnik {
 
-public class Uporabnik implements ListNesrec {
-
-	private String uporabniskoIme;
-	private String geslo;
-	private String ime;
-	private String priimek;
-
-	public void seznamDonacij() {
-		// TODO - implement Uporabnik.seznamDonacij
-		throw new UnsupportedOperationException();
-	}
-
-	public void dodajDonacijo() {
-		// TODO - implement Uporabnik.dodajDonacijo
-		throw new UnsupportedOperationException();
-	}
-
-	public void odstraniDonacijo() {
-		// TODO - implement Uporabnik.odstraniDonacijo
-		throw new UnsupportedOperationException();
-	}
+    @Id
+    @GeneratedValue
+    private long id;
 
 
-	@Override
-	public List<Nesreca> prikaziSeznam(String opis) {
-		return null;
-	}
+    @ManyToMany
+    @JoinTable(
+            name = "Uporabnik_Donacija",
+            joinColumns = @JoinColumn(name = "uporabnik_id"),
+            inverseJoinColumns = @JoinColumn(name = "donacija_id")
+    )
+    List<Donacija> donacije;
+
+
+    private String uporabniskoIme;
+    private String geslo;
+    private String ime;
+    private String priimek;
+
+
 }

@@ -1,6 +1,7 @@
 package si.um.feri.ris.controllers;
-import si.um.feri.ris.models.Donacija;
 import si.um.feri.ris.models.Uporabnik;
+import si.um.feri.ris.models.Donacija;
+
 public class UporabnikController {
 
     public void seznamDonacij(Uporabnik uporabnik) {

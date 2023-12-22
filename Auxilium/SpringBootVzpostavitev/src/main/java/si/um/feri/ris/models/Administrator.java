@@ -1,54 +1,41 @@
 package si.um.feri.ris.models;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import si.um.feri.ris.models.Nesreca;
 import si.um.feri.ris.models.Oskodovanec;
 public class Administrator {
 
+	@Id
+	@GeneratedValue
+	private long id;
+
+	//TODO - NAREDI CEL CLASS
+
 	private String uporabniskoIme;
 	private String geslo;
 
-	/**
-	 * 
-	 * @param nesreca
-	 */
-	public void dodajNesreco(Nesreca nesreca) {
-		// TODO - implement Administrator.dodajNesreco
-		throw new UnsupportedOperationException();
+
+	public String getUporabniskoIme() {
+		return uporabniskoIme;
 	}
 
-	/**
-	 * 
-	 * @param nesreca
-	 */
-	public void izbrisiNesreco(Nesreca nesreca) {
-		// TODO - implement Administrator.izbrisiNesreco
-		throw new UnsupportedOperationException();
+	public void setUporabniskoIme(String uporabniskoIme) {
+		this.uporabniskoIme = uporabniskoIme;
 	}
 
-	/**
-	 * 
-	 * @param nesreca
-	 */
-	public void urediNesreco(Nesreca nesreca) {
-		// TODO - implement Administrator.urediNesreco
-		throw new UnsupportedOperationException();
+	public String getGeslo() {
+		return geslo;
 	}
 
-	/**
-	 * 
-	 * @param oskodovanec
-	 */
-	public void dodajOskodovanca(Oskodovanec oskodovanec) {
-		// TODO - implement Administrator.dodajOskodovanca
-		throw new UnsupportedOperationException();
+	public void setGeslo(String geslo) {
+		this.geslo = geslo;
 	}
 
-	/**
-	 * 
-	 * @param oskodovanec
-	 */
-	public void odstraniOskodovanca(Oskodovanec oskodovanec) {
-		// TODO - implement Administrator.odstraniOskodovanca
-		throw new UnsupportedOperationException();
+	public long getId() {
+		return id;
 	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
 }

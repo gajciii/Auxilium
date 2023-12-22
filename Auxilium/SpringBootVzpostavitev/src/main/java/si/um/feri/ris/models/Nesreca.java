@@ -1,10 +1,19 @@
 package si.um.feri.ris.models;
+import jakarta.persistence.*;
 import si.um.feri.ris.repository.ListNesrec;
 import si.um.feri.ris.repository.PregledOskodovancev;
 
+import java.util.Collection;
 import java.util.List;
+@Entity
+public class Nesreca{
 
-public class Nesreca implements ListNesrec, PregledOskodovancev {
+	@Id
+	@GeneratedValue
+	private long id;
+
+	@ManyToMany(mappedBy = "nesrece", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Oskodovanec> oskodovanci;
 
 	private int datum;
 	private String opis;
@@ -27,13 +36,20 @@ public class Nesreca implements ListNesrec, PregledOskodovancev {
 	}
 
 
-	@Override
-	public List<Nesreca> prikaziSeznam(String opis) {
-		return null;
+	public long getId() {
+		return id;
 	}
 
-	@Override
-	public Oskodovanec prikaziSeznam() {
-		return null;
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
+	public String getOpis() {
+		return opis;
+	}
+
+	public void setOpis(String opis) {
+		this.opis = opis;
 	}
 }

@@ -1,6 +1,10 @@
 package si.um.feri.ris.controllers;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import si.um.feri.ris.models.Nesreca;
 import si.um.feri.ris.models.Oskodovanec;
+@RestController
+//@RequestMapping()
 public class AdministratorController {
 
     private Nesreca nesreca;

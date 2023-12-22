@@ -1,3 +1,8 @@
+package si.um.feri.ris.models;
+import si.um.feri.ris.repository.ListNesrec;
+
+import java.util.List;
+
 public class Uporabnik implements ListNesrec {
 
 	private String uporabniskoIme;
@@ -20,4 +25,9 @@ public class Uporabnik implements ListNesrec {
 		throw new UnsupportedOperationException();
 	}
 
+
+	@Override
+	public List<Nesreca> prikaziSeznam(String opis) {
+		return null;
+	}
 }

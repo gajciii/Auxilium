@@ -1,3 +1,5 @@
+package si.um.feri.ris.controllers;
+import si.um.feri.ris.models.Nesreca;
 public class NesrecaController {
 
     public void prikaziSeznam() {

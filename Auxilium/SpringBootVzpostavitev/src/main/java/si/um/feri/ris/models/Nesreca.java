@@ -1,3 +1,9 @@
+package si.um.feri.ris.models;
+import si.um.feri.ris.repository.ListNesrec;
+import si.um.feri.ris.repository.PregledOskodovancev;
+
+import java.util.List;
+
 public class Nesreca implements ListNesrec, PregledOskodovancev {
 
 	private int datum;
@@ -20,4 +26,14 @@ public class Nesreca implements ListNesrec, PregledOskodovancev {
 		this.lokacija = lokacija;
 	}
 
+
+	@Override
+	public List<Nesreca> prikaziSeznam(String opis) {
+		return null;
+	}
+
+	@Override
+	public Oskodovanec prikaziSeznam() {
+		return null;
+	}
 }

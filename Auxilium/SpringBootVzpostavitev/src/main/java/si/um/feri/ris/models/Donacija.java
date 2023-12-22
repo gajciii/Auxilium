@@ -1,3 +1,4 @@
+package si.um.feri.ris.models;
 public class Donacija {
 
 	private double znesekDonacije;

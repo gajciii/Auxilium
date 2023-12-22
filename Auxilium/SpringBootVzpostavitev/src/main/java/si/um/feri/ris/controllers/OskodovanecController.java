@@ -1,3 +1,4 @@
+package si.um.feri.ris.controllers;
 public class OskodovanecController {
 
     public void prikaziSeznam() {

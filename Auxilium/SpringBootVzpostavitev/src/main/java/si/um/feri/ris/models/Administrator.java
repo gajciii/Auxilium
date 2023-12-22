@@ -1,3 +1,6 @@
+package si.um.feri.ris.models;
+import si.um.feri.ris.models.Nesreca;
+import si.um.feri.ris.models.Oskodovanec;
 public class Administrator {
 
 	private String uporabniskoIme;

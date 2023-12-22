@@ -1,4 +1,9 @@
+package si.um.feri.ris.controllers;
+import si.um.feri.ris.models.Nesreca;
+import si.um.feri.ris.models.Oskodovanec;
 public class AdministratorController {
+
+    private Nesreca nesreca;
 
     public void dodajNesreco(Nesreca nesreca) {
         // Logic to add an incident

@@ -1,8 +1,6 @@
 package si.um.feri.ris.models;
 import jakarta.persistence.*;
-import si.um.feri.ris.repository.ListNesrec;
-import si.um.feri.ris.repository.PregledOskodovancev;
-import java.util.Collection;
+
 import java.util.Date;
 import java.util.List;
 @Entity
@@ -15,6 +13,9 @@ public class Nesreca{
 	@ManyToMany(mappedBy = "nesrece", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Oskodovanec> oskodovanci;
 
+	@ManyToOne
+	@JoinColumn(name = "administrator_id")
+	private Administrator administrator;
 	private Date datum;
 	private String opis;
 	private String lokacija;

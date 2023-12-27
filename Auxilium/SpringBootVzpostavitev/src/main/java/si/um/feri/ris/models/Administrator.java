@@ -1,19 +1,23 @@
 package si.um.feri.ris.models;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import si.um.feri.ris.models.Nesreca;
 import si.um.feri.ris.models.Oskodovanec;
+import java.util.List;
+@Entity
 public class Administrator {
 
 	@Id
 	@GeneratedValue
 	private long id;
 
-	//TODO - NAREDI CEL CLASS
-
 	private String uporabniskoIme;
 	private String geslo;
 
+	@OneToMany(mappedBy = "administrator")
+	private List<Nesreca> nesrece;
+
+	@OneToMany(mappedBy = "administrator")
+	private List<Oskodovanec> oskodovanci;
 
 	public String getUporabniskoIme() {
 		return uporabniskoIme;

@@ -1,31 +1,72 @@
 package si.um.feri.ris.controllers;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import si.um.feri.ris.models.Nesreca;
 import si.um.feri.ris.models.Oskodovanec;
+import si.um.feri.ris.repository.ListNesrec;
+import si.um.feri.ris.repository.PregledDonacij;
+import si.um.feri.ris.repository.PregledOskodovancev;
+
+import java.util.Optional;
+
 @RestController
-//@RequestMapping()
+@RequestMapping("/administratorji")
 public class AdministratorController {
 
-    private Nesreca nesreca;
+    @Autowired
+    private ListNesrec nesrecaDAO;
+    @Autowired
+    private PregledOskodovancev oskodovanciDAO;
 
-    public void dodajNesreco(Nesreca nesreca) {
-        // Logic to add an incident
+    @PostMapping
+    public ResponseEntity<Nesreca> dodajNesreco(@RequestBody Nesreca nesreca) {
+        nesrecaDAO.save(nesreca);
+        return ResponseEntity.ok(nesreca);
     }
 
-    public void izbrisiNesreco(Nesreca nesreca) {
-        // Logic to delete an incident
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> izbrisiNesreco(@PathVariable int id) {
+        Optional<Nesreca> nesreca = nesrecaDAO.findById(id);
+        if (nesreca.isPresent()) {
+            nesrecaDAO.deleteById(id);
+            return ResponseEntity.ok("Nesreča uspešno izbrisana");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    public void urediNesreco(Nesreca nesreca) {
-        // Logic to edit an incident
+    @PutMapping("/urediNesreco")
+    public ResponseEntity<Nesreca> urediNesreco(@RequestBody Nesreca nesreca) {
+        Optional<Nesreca> existingNesreca = nesrecaDAO.findById((int) nesreca.getId());
+
+        if (existingNesreca.isPresent()) {
+            existingNesreca.get().setDatum(nesreca.getDatum());
+            existingNesreca.get().setLokacija(nesreca.getLokacija());
+            existingNesreca.get().setOpis(nesreca.getOpis());
+            nesrecaDAO.save(existingNesreca.get());
+
+            return ResponseEntity.ok(existingNesreca.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    public void dodajOskodovanca(Oskodovanec oskodovanec) {
-        // Logic to add a harmed person
+    @PostMapping("/dodajOskodovanca")
+    public ResponseEntity<Oskodovanec> dodajOskodovanca(@RequestBody Oskodovanec oskodovanec) {
+        oskodovanciDAO.save(oskodovanec);
+        return ResponseEntity.ok(oskodovanec);
     }
 
-    public void odstraniOskodovanca(Oskodovanec oskodovanec) {
-        // Logic to remove a harmed person
+    @DeleteMapping("/odstraniOskodovanca/{id}")
+    public ResponseEntity<String> odstraniOskodovanca(@PathVariable int id) {
+        Optional<Oskodovanec> oskodovanec = oskodovanciDAO.findById(id);
+        if (oskodovanec.isPresent()) {
+            oskodovanciDAO.deleteById(id);
+            return ResponseEntity.ok("Oškodovanec uspešno odstranjen");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Oškodovanec s podanim ID-jem ni bil najden");
+        }
     }
 }

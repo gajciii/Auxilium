@@ -27,6 +27,10 @@ public class Oskodovanec {
 	)
 	List<Donacija> donacije;
 
+	@ManyToOne
+	@JoinColumn(name = "administrator_id")
+	private Administrator administrator;
+
 	private String ime;
 	private String priimek;
 

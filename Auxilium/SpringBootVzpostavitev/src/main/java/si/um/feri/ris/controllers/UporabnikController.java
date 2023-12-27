@@ -42,5 +42,22 @@ public class UporabnikController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Uporabnik> urediPodatkeUporabnika(@PathVariable Long id, @RequestBody Uporabnik posodobljenUporabnik){
+        Uporabnik obstojecUporabnik = uporabnikDao.findById(id).orElse(null);
 
+        if (obstojecUporabnik != null){
+            obstojecUporabnik.setUporabniskoIme(posodobljenUporabnik.getUporabniskoIme());
+            obstojecUporabnik.setIme(posodobljenUporabnik.getIme());
+            obstojecUporabnik.setPriimek(posodobljenUporabnik.getPriimek());
+            obstojecUporabnik.setGeslo(posodobljenUporabnik.getGeslo());
+
+            Uporabnik novUporabnik = uporabnikDao.save(obstojecUporabnik);
+            return ResponseEntity.ok(novUporabnik);
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
 }

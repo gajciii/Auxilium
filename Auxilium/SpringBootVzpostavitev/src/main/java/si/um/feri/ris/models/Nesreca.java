@@ -2,8 +2,8 @@ package si.um.feri.ris.models;
 import jakarta.persistence.*;
 import si.um.feri.ris.repository.ListNesrec;
 import si.um.feri.ris.repository.PregledOskodovancev;
-
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 @Entity
 public class Nesreca{
@@ -15,15 +15,15 @@ public class Nesreca{
 	@ManyToMany(mappedBy = "nesrece", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Oskodovanec> oskodovanci;
 
-	private int datum;
+	private Date datum;
 	private String opis;
 	private String lokacija;
 
-	public int getDatum() {
+	public Date getDatum() {
 		return this.datum;
 	}
 
-	public void setDatum(int datum) {
+	public void setDatum(Date datum) {
 		this.datum = datum;
 	}
 

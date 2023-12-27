@@ -9,6 +9,7 @@ import si.um.feri.ris.repository.PregledDonacij;
 import si.um.feri.ris.repository.UporabnikRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/uporabniki")
@@ -22,6 +23,18 @@ public class UporabnikController {
     @GetMapping("/donacije")
     public Iterable<Donacija> seznamDonacij() {
         return donacijaDao.findAll();
+    }
+
+    @GetMapping("/uporabnik")
+    public ResponseEntity<Uporabnik> uporabnikID(@PathVariable Long id){
+        Optional<Uporabnik> uporabnik = uporabnikDao.findUporabnikById(id);
+        if(uporabnik.isPresent()){
+            return ResponseEntity.ok(uporabnik.get());
+        }
+        else {
+            return ResponseEntity.notFound().build();
+
+        }
     }
 
 
@@ -59,5 +72,5 @@ public class UporabnikController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
 }

@@ -54,4 +54,7 @@ public class Oskodovanec {
 	public void setPriimek(String priimek) {
 		this.priimek = priimek;
 	}
+
+	public void dodajDonacijo(Donacija donacija) {
+	}
 }

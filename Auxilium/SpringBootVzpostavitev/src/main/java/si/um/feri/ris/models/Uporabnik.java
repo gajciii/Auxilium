@@ -29,4 +29,8 @@ public class Uporabnik {
     private String priimek;
 
 
+    public Donacija dodajDonacijo(Donacija donacija) {
+        this.donacije.add(donacija);
+        return donacija;
+    }
 }

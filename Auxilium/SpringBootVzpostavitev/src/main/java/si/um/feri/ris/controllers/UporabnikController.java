@@ -1,18 +1,29 @@
 package si.um.feri.ris.controllers;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import si.um.feri.ris.models.Oskodovanec;
 import si.um.feri.ris.models.Uporabnik;
 import si.um.feri.ris.models.Donacija;
+import si.um.feri.ris.repository.PregledDonacij;
 
+@RestController
+@RequestMapping("/uporabniki")
 public class UporabnikController {
 
-    public void seznamDonacij(Uporabnik uporabnik) {
-        // Logic to display donation list for a user
+    @Autowired
+    private PregledDonacij donacijaDao;
+    @GetMapping("/donacije")
+    public Iterable<Donacija> seznamDonacij() {
+        return donacijaDao.findAll();
     }
 
-    public void dodajDonacijo(Uporabnik uporabnik, Donacija donacija) {
-        // Logic to add a donation for a user
+    @PostMapping
+    public Donacija dodajDonacijo(Uporabnik uporabnik, Donacija donacija) {
+        return uporabnik.dodajDonacijo(donacija);
     }
 
-    public void odstraniDonacijo(Uporabnik uporabnik, Donacija donacija) {
-        // Logic to remove a donation for a user
-    }
+
 }

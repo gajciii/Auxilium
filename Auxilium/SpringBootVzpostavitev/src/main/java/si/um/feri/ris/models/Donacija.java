@@ -12,7 +12,6 @@ public class Donacija {
     @GeneratedValue
     private long id;
 
-
     @ManyToMany(mappedBy = "donacije", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Oskodovanec> oskodovanci;
 
@@ -21,13 +20,28 @@ public class Donacija {
 
     private double znesekDonacije;
 
-
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public List<Oskodovanec> getOskodovanci() {
+        return oskodovanci;
+    }
+
+    public void setOskodovanci(List<Oskodovanec> oskodovanci) {
+        this.oskodovanci = oskodovanci;
+    }
+
+    public List<Uporabnik> getUporabniki() {
+        return uporabniki;
+    }
+
+    public void setUporabniki(List<Uporabnik> uporabniki) {
+        this.uporabniki = uporabniki;
     }
 
     public double getZnesekDonacije() {

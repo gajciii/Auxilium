@@ -1,9 +1,23 @@
 package si.um.feri.ris.controllers;
-import si.um.feri.ris.models.Donacija;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import si.um.feri.ris.models.Donacija;
+import si.um.feri.ris.repository.PregledDonacij;
+
+@RestController
+@RequestMapping("/donacije")
 public class DonacijaController {
 
-    public void izvediDonacijo(Donacija donacija) {
-        // Logic to process a donation
+    @Autowired
+    private PregledDonacij donacijaDao;
+
+    @PostMapping
+    public Donacija dodajDonacijo(@RequestBody Donacija donacija) {
+        return donacijaDao.save(donacija);
     }
 }
+

@@ -28,7 +28,6 @@ public class NesrecaController {
     @GetMapping("/{id}")
     public ResponseEntity<Nesreca> vrniNesrecoPoId(@PathVariable Long id) {
         try {
-            // Uporabite nesrecaDAO za iskanje nesreče po ID
             Nesreca nesreca = nesrecaDAO.findById(id).orElse(null);
 
             return ResponseEntity.ok(nesreca);
@@ -58,14 +57,20 @@ public class NesrecaController {
     @PutMapping("/urediNesreco/{id}")
     public ResponseEntity<Nesreca> urediNesreco(@PathVariable Long id, @RequestBody Nesreca posodobljenaNesreca){
         Nesreca obstojecaNesreca = nesrecaDAO.findById(id).orElse(null);
-        if(obstojecaNesreca != null){
-            obstojecaNesreca.setDatum(posodobljenaNesreca.getDatum());
-            obstojecaNesreca.setLokacija(posodobljenaNesreca.getLokacija());
-            obstojecaNesreca.setOpis(posodobljenaNesreca.getOpis());
-            nesrecaDAO.save(obstojecaNesreca);
-            return ResponseEntity.ok(obstojecaNesreca);
+        try {
+            if(obstojecaNesreca != null){
+                obstojecaNesreca.setDatum(posodobljenaNesreca.getDatum());
+                obstojecaNesreca.setLokacija(posodobljenaNesreca.getLokacija());
+                obstojecaNesreca.setOpis(posodobljenaNesreca.getOpis());
+                nesrecaDAO.save(obstojecaNesreca);
+                return ResponseEntity.ok(obstojecaNesreca);
+            }
+            else{
+                return ResponseEntity.notFound().build();
+            }
         }
-        else{
+        catch (Exception e){
+            System.out.println(e + "\nNapaka pri urejanju nesrece");
             return ResponseEntity.notFound().build();
         }
     }

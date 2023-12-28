@@ -25,7 +25,12 @@ public class UporabnikController {
         return donacijaDao.findAll();
     }
 
-    @GetMapping("/uporabnik")
+    @GetMapping("/uporabniki")
+    public Iterable<Uporabnik> seznamUporabnikov() {
+        return uporabnikDao.findAll();
+    }
+
+    @GetMapping("/uporabnik/{id}")
     public ResponseEntity<Uporabnik> uporabnikID(@PathVariable Long id){
         Optional<Uporabnik> uporabnik = uporabnikDao.findUporabnikById(id);
         if(uporabnik.isPresent()){

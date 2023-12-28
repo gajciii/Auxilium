@@ -13,4 +13,11 @@ public interface UporabnikRepository extends JpaRepository<Uporabnik, Long> {
 
     @Query("SELECT u FROM Uporabnik u")
     Optional<Uporabnik> findUporabnikById(Long id);
+
+    @Query("SELECT u FROM Uporabnik u " +
+            "JOIN u.donacije d " +
+            "GROUP BY u.id " +
+            "HAVING SUM(d.znesekDonacije) > 500 AND COUNT(DISTINCT d) >= 3")
+    List<Uporabnik> pridobiUporabnikeZVisokimiDonacijami();
+
 }

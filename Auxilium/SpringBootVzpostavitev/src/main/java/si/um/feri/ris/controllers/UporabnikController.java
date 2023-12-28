@@ -37,6 +37,11 @@ public class UporabnikController {
         }
     }
 
+    @GetMapping("/TopDonatorji")
+    public List<Uporabnik> pridobiTopDonatorje(){
+        return uporabnikDao.pridobiUporabnikeZVisokimiDonacijami();
+    }
+
 
     @PostMapping
     public Donacija dodajDonacijo(Uporabnik uporabnik, Donacija donacija) {

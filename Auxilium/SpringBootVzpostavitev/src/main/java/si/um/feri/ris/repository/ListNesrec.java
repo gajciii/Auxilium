@@ -5,7 +5,7 @@ import si.um.feri.ris.models.Nesreca;
 
 import java.util.List;
 
-public interface ListNesrec extends CrudRepository<Nesreca, Integer> {
+public interface ListNesrec extends CrudRepository<Nesreca, Long> {
 
 
 //	@Query("select n from Nesreca n join n.oskodovanci o where o.id = :id")

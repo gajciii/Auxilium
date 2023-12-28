@@ -1,10 +1,8 @@
 package si.um.feri.ris.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import si.um.feri.ris.models.Donacija;
 import si.um.feri.ris.repository.PregledDonacij;
 
@@ -14,6 +12,47 @@ public class DonacijaController {
 
     @Autowired
     private PregledDonacij donacijaDao;
+
+    @GetMapping("/donacije")
+    public Iterable<Donacija> prikaziDonacijo(){
+        return donacijaDao.findAll();
+    }
+
+    @GetMapping("/donacije/{id}")
+    public Donacija prikaziDonacijo(@PathVariable Long id){
+        return donacijaDao.findById(id).orElse(null);
+    }
+
+    @DeleteMapping("izbrisiDonacijo/{id}")
+    public ResponseEntity<Donacija> izbrisiDonacijo(@PathVariable Long id){
+        try {
+            Donacija donacija = donacijaDao.findById(id).orElse(null);
+            if (donacija != null) {
+                donacijaDao.delete(donacija);
+                return ResponseEntity.ok(donacija);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        }catch (Exception e) {
+            System.out.println(e + "\nNapaka pri brisanju donacije");
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/urediDonacijo/{id}")
+    public ResponseEntity<Donacija> urediDonacijo(@PathVariable Long id, @RequestBody Donacija posodobljenaDonacija){
+        Donacija obstojecaDonacija = donacijaDao.findById(id).orElse(null);
+        if(obstojecaDonacija != null){
+            obstojecaDonacija.setZnesekDonacije(posodobljenaDonacija.getZnesekDonacije());
+            obstojecaDonacija.setOskodovanci(posodobljenaDonacija.getOskodovanci());
+            donacijaDao.save(obstojecaDonacija);
+            return ResponseEntity.ok(obstojecaDonacija);
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
     @PostMapping
     public Donacija dodajDonacijo(@RequestBody Donacija donacija) {

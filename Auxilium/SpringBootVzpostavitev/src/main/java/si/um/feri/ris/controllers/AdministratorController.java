@@ -27,7 +27,7 @@ public class AdministratorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> izbrisiNesreco(@PathVariable int id) {
+    public ResponseEntity<String> izbrisiNesreco(@PathVariable long id) {
         Optional<Nesreca> nesreca = nesrecaDAO.findById(id);
         if (nesreca.isPresent()) {
             nesrecaDAO.deleteById(id);
@@ -39,7 +39,7 @@ public class AdministratorController {
 
     @PutMapping("/urediNesreco")
     public ResponseEntity<Nesreca> urediNesreco(@RequestBody Nesreca nesreca) {
-        Optional<Nesreca> existingNesreca = nesrecaDAO.findById((int) nesreca.getId());
+        Optional<Nesreca> existingNesreca = nesrecaDAO.findById(nesreca.getId());
 
         if (existingNesreca.isPresent()) {
             existingNesreca.get().setDatum(nesreca.getDatum());
@@ -60,7 +60,7 @@ public class AdministratorController {
     }
 
     @DeleteMapping("/odstraniOskodovanca/{id}")
-    public ResponseEntity<String> odstraniOskodovanca(@PathVariable int id) {
+    public ResponseEntity<String> odstraniOskodovanca(@PathVariable long id) {
         Optional<Oskodovanec> oskodovanec = oskodovanciDAO.findById(id);
         if (oskodovanec.isPresent()) {
             oskodovanciDAO.deleteById(id);

@@ -15,6 +15,11 @@ public class NesrecaController {
         return nesrecaDAO.findAll();
     }
 
+    @GetMapping("nesreca/{id}")
+    public Nesreca vrniNesreco(@PathVariable Long id){
+        return nesrecaDAO.findById(id).orElse(null);
+    }
+
     @PostMapping
     public Nesreca dodajNesreco(Nesreca nesreca){
         return nesrecaDAO.save(nesreca);
@@ -24,7 +29,7 @@ public class NesrecaController {
     public ResponseEntity<Nesreca> vrniNesrecoPoId(@PathVariable Long id) {
         try {
             // Uporabite nesrecaDAO za iskanje nesreče po ID
-            Nesreca nesreca = nesrecaDAO.findById(Math.toIntExact(id)).orElseThrow(() -> new Exception("Nesreca not found with id: " + id));
+            Nesreca nesreca = nesrecaDAO.findById(id).orElse(null);
 
             return ResponseEntity.ok(nesreca);
         } catch (Exception e) {
@@ -32,4 +37,37 @@ public class NesrecaController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @DeleteMapping("/odstraniNesreco/{id}")
+    public ResponseEntity<Nesreca> odstraniNesreco(@PathVariable Long id){
+        try{
+            Nesreca nesreca = nesrecaDAO.findById(id).orElse(null);
+            if(nesreca != null){
+                nesrecaDAO.delete(nesreca);
+                return ResponseEntity.ok(nesreca);
+            }
+            else{
+                return ResponseEntity.notFound().build();
+            }
+        }catch (Exception e){
+            System.out.println(e + "\nNapaka pri brisanju nesrece");
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/urediNesreco/{id}")
+    public ResponseEntity<Nesreca> urediNesreco(@PathVariable Long id, @RequestBody Nesreca posodobljenaNesreca){
+        Nesreca obstojecaNesreca = nesrecaDAO.findById(id).orElse(null);
+        if(obstojecaNesreca != null){
+            obstojecaNesreca.setDatum(posodobljenaNesreca.getDatum());
+            obstojecaNesreca.setLokacija(posodobljenaNesreca.getLokacija());
+            obstojecaNesreca.setOpis(posodobljenaNesreca.getOpis());
+            nesrecaDAO.save(obstojecaNesreca);
+            return ResponseEntity.ok(obstojecaNesreca);
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

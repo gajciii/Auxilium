@@ -5,7 +5,7 @@ import si.um.feri.ris.models.Oskodovanec;
 
 import java.util.List;
 
-public interface PregledOskodovancev extends CrudRepository<Oskodovanec, Integer> {
+public interface PregledOskodovancev extends CrudRepository<Oskodovanec, Long> {
 
 
 	@Query("select o from Oskodovanec o join o.nesrece n where n.id = :nesrecaId")

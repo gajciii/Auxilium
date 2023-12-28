@@ -8,7 +8,9 @@ import java.util.List;
 public interface ListNesrec extends CrudRepository<Nesreca, Long> {
 
 
-//	@Query("select n from Nesreca n join n.oskodovanci o where o.id = :id")
-//	List<Nesreca> prikaziSeznam(String opis);
+	@Query("select n from Nesreca n join n.oskodovanci o where o.id = :id")
+	List<Nesreca> findNesrecaById(long id);
+
+
 
 }

@@ -12,7 +12,7 @@ public interface UporabnikRepository extends JpaRepository<Uporabnik, Long> {
     List<Uporabnik> findByIme(String ime);
 
     @Query("SELECT u FROM Uporabnik u")
-    Optional<Uporabnik> findUporabnikById(Long id);
+    Optional<Uporabnik> findUporabnikById(long id);
 
     @Query("SELECT u FROM Uporabnik u " +
             "JOIN u.donacije d " +

@@ -49,7 +49,7 @@ public class UporabnikController {
     }
 
 
-    @PostMapping
+    @PostMapping("/dodajDonacijo")
     public Donacija dodajDonacijo(Uporabnik uporabnik, Donacija donacija) {
         return uporabnik.dodajDonacijo(donacija);
     }
@@ -93,7 +93,7 @@ public class UporabnikController {
                 return ResponseEntity.ok(novUporabnik.getUporabniskoIme() + " uspešno registriran");
             }
             else{
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("Uporabnik s tem uporabniškim imenom že obstaja");
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Uporabnik s tem uporabniškim imenom že obstaja " + novUporabnik.getUporabniskoIme());
             }
         }
         catch (Exception e){

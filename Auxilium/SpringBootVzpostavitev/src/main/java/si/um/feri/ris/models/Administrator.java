@@ -42,4 +42,13 @@ public class Administrator {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	@Override
+	public String toString() {
+		return "Administrator{" +
+				"id=" + id +
+				", uporabniskoIme='" + uporabniskoIme + '\'' +
+				", geslo='" + geslo + '\'' +
+				'}';
+	}
 }

@@ -3,12 +3,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import si.um.feri.ris.models.Nesreca;
-import si.um.feri.ris.models.Oskodovanec;
+import si.um.feri.ris.models.*;
+import si.um.feri.ris.repository.AdministratorRepository;
 import si.um.feri.ris.repository.ListNesrec;
 import si.um.feri.ris.repository.PregledDonacij;
 import si.um.feri.ris.repository.PregledOskodovancev;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,10 +21,26 @@ public class AdministratorController {
     @Autowired
     private PregledOskodovancev oskodovanciDAO;
 
+    @Autowired
+    private AdministratorRepository administratorDAO;
+
     @PostMapping
     public ResponseEntity<Nesreca> dodajNesreco(@RequestBody Nesreca nesreca) {
         nesrecaDAO.save(nesreca);
         return ResponseEntity.ok(nesreca);
+    }
+
+    @PostMapping("/dodajAdministratorja")
+    public ResponseEntity<String> dodajAdministratorja(@RequestBody Administrator novAdmin) {
+        try {
+            System.out.println("Nov admin prejet: " + novAdmin);
+            System.out.println("Novo uporabnisko ime: " + novAdmin.getUporabniskoIme());
+            administratorDAO.save(novAdmin);
+            return ResponseEntity.ok("Administrator uspešno dodan. " + novAdmin.getUporabniskoIme());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Napaka pri dodajanju administratorja: " + e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -67,6 +84,28 @@ public class AdministratorController {
             return ResponseEntity.ok("Oškodovanec uspešno odstranjen");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Oškodovanec s podanim ID-jem ni bil najden");
+        }
+    }
+
+    @PostMapping("/prijava")
+    public ResponseEntity<String> prijavaAdmina(@RequestBody Administrator prijavljenAdmin){
+        try {
+            if (prijavljenAdmin.getUporabniskoIme() == null || prijavljenAdmin.getGeslo() == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Uporabniško ime ali geslo manjka.");
+            }
+
+            List<Administrator> admin = administratorDAO.findByUporabniskoImeAdmin(prijavljenAdmin.getUporabniskoIme());
+
+            if (admin.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Administrator s tem uporabniškim imenom ne obstaja");
+            } else if (!admin.get(0).getGeslo().equals(prijavljenAdmin.getGeslo())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Napačno geslo");
+            } else {
+                return ResponseEntity.ok("Prijava uspešna");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Napaka pri prijavi administratorja: " + e.getMessage());
         }
     }
 }

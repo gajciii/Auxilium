@@ -56,11 +56,19 @@ public class OskodovanecController {
             if(obstojecOskodovanec != null){
                 if(posodobljenOskodovanec.getIme() != null){
 
-                    obstojecOskodovanec.setIme(obstojecOskodovanec.getIme());
+                    obstojecOskodovanec.setIme(posodobljenOskodovanec.getIme());
                 }
                 if(posodobljenOskodovanec.getPriimek() != null){
 
                     obstojecOskodovanec.setPriimek(posodobljenOskodovanec.getPriimek());
+                }
+                if(!String.valueOf(posodobljenOskodovanec.isImaDruzino()).equals("None")){
+
+                    obstojecOskodovanec.setImaDruzino(posodobljenOskodovanec.isImaDruzino());
+                }
+                if(!String.valueOf(posodobljenOskodovanec.isMocnejePoskodovan()).equals("None")){
+
+                    obstojecOskodovanec.setMocnejePoskodovan(posodobljenOskodovanec.isMocnejePoskodovan());
                 }
                 oskodovanecDao.save(obstojecOskodovanec);
                 return ResponseEntity.ok(obstojecOskodovanec);

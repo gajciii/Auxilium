@@ -7,7 +7,7 @@ import java.util.List;
 public class Nesreca{
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@ManyToMany(mappedBy = "nesrece", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -8,7 +8,7 @@ import java.util.List;
 public class Oskodovanec {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@ManyToMany

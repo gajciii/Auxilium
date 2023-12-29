@@ -1,6 +1,7 @@
 package si.um.feri.ris.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import si.um.feri.ris.models.Donacija;
@@ -54,9 +55,18 @@ public class DonacijaController {
     }
 
 
-    @PostMapping
-    public Donacija dodajDonacijo(@RequestBody Donacija donacija) {
-        return donacijaDao.save(donacija);
+    @PostMapping("/dodajDonacijo")
+    public ResponseEntity<String> dodajDonacijo(@RequestBody Donacija novaDonacija) {
+        try {
+            System.out.println("Vrednost zneska donacije: " + novaDonacija.getZnesekDonacije());
+            donacijaDao.save(novaDonacija);
+            return ResponseEntity.ok("Donacija uspešno dodana. " + novaDonacija.getZnesekDonacije() + "€");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Napaka pri dodajanju donacije: " + e.getMessage());
+        }
     }
+
+
 }
 

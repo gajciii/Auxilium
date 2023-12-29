@@ -49,11 +49,23 @@ public class UporabnikController {
     }
 
 
-    @PostMapping("/dodajDonacijo")
-    public Donacija dodajDonacijo(Uporabnik uporabnik, Donacija donacija) {
-        return uporabnik.dodajDonacijo(donacija);
-    }
+//    @PostMapping("/dodajDonacijo")
+//    public Donacija dodajDonacijo(Uporabnik uporabnik, Donacija donacija) {
+//        return uporabnik.dodajDonacijo(donacija);
+//    }
 
+    @PostMapping("/dodajDonacijoUporabniku/{uporabnikId}")
+    public ResponseEntity<String> dodajDonacijoUporabniku(@PathVariable Long uporabnikId, @RequestBody Donacija novaDonacija) {
+        Optional<Uporabnik> najdenUporabnik = uporabnikDao.findById(uporabnikId);
+        if (najdenUporabnik.isPresent()) {
+            Uporabnik uporabnik = najdenUporabnik.get();
+            uporabnik.dodajDonacijo(novaDonacija);
+            uporabnikDao.save(uporabnik);
+            return ResponseEntity.ok("Donacija uspešno dodana uporabniku.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Uporabnik ni bil najden.");
+        }
+    }
 
     @DeleteMapping("/uporabniki/{ime}")
     public ResponseEntity<String> odstraniUporabnikePoImenu(@PathVariable String ime) {

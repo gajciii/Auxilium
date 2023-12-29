@@ -9,7 +9,7 @@ import java.util.List;
 public class Donacija {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToMany(mappedBy = "donacije", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

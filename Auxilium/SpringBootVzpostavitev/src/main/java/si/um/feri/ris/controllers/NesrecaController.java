@@ -20,8 +20,8 @@ public class NesrecaController {
         return nesrecaDAO.findById(id).orElse(null);
     }
 
-    @PostMapping
-    public Nesreca dodajNesreco(Nesreca nesreca){
+    @PostMapping("/dodajNesreco")
+    public Nesreca dodajNesreco(@RequestBody Nesreca nesreca){
         return nesrecaDAO.save(nesreca);
     }
 

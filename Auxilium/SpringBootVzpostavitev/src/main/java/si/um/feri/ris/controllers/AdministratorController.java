@@ -26,9 +26,22 @@ public class AdministratorController {
 
     @PostMapping
     public ResponseEntity<Nesreca> dodajNesreco(@RequestBody Nesreca nesreca) {
-        nesrecaDAO.save(nesreca);
-        return ResponseEntity.ok(nesreca);
+        if (nesreca.getAdministrator() != null) {
+            long adminId = nesreca.getAdministrator().getId();
+            Optional<Administrator> adminOptional = administratorDAO.findById(adminId);
+
+            if (adminOptional.isPresent()) {
+                nesreca.setAdministrator(adminOptional.get());
+                nesrecaDAO.save(nesreca);
+                return ResponseEntity.ok(nesreca);
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
+
 
     @PostMapping("/dodajAdministratorja")
     public ResponseEntity<String> dodajAdministratorja(@RequestBody Administrator novAdmin) {

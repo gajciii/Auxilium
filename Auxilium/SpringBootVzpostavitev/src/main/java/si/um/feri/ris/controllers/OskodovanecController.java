@@ -26,6 +26,7 @@ public class OskodovanecController {
 
     @PostMapping
     public Oskodovanec dodajOskodovanca(Oskodovanec oskodovanec) {
+
         return oskodovanecDao.save(oskodovanec);
     }
 
@@ -53,8 +54,14 @@ public class OskodovanecController {
 
         try {
             if(obstojecOskodovanec != null){
-                obstojecOskodovanec.setIme(posodobljenOskodovanec.getIme());
-                obstojecOskodovanec.setPriimek(posodobljenOskodovanec.getPriimek());
+                if(posodobljenOskodovanec.getIme() != null){
+
+                    obstojecOskodovanec.setIme(obstojecOskodovanec.getIme());
+                }
+                if(posodobljenOskodovanec.getPriimek() != null){
+
+                    obstojecOskodovanec.setPriimek(posodobljenOskodovanec.getPriimek());
+                }
                 oskodovanecDao.save(obstojecOskodovanec);
                 return ResponseEntity.ok(obstojecOskodovanec);
             }

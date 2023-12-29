@@ -34,6 +34,30 @@ public class Oskodovanec {
 	private String ime;
 	private String priimek;
 
+	private boolean imaDruzino;
+	private boolean mocnejePoskodovan;
+
+	public boolean isImaDruzino() {
+		return imaDruzino;
+	}
+
+	public void setImaDruzino(boolean imaDruzino) {
+		this.imaDruzino = imaDruzino;
+	}
+
+	public boolean isMocnejePoskodovan() {
+		return mocnejePoskodovan;
+	}
+
+	public void setMocnejePoskodovan(boolean mocnejePoskodovan) {
+		this.mocnejePoskodovan = mocnejePoskodovan;
+	}
+
+
+
+	public Oskodovanec() {
+	}
+
 
 	public long getId() {
 		return id;

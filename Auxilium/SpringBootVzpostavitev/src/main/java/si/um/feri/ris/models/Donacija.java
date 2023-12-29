@@ -51,4 +51,12 @@ public class Donacija {
     public void setZnesekDonacije(double znesekDonacije) {
         this.znesekDonacije = znesekDonacije;
     }
+
+    @Override
+    public String toString() {
+        return "Donacija{" +
+                "id=" + id +
+                ", znesekDonacije=" + znesekDonacije +
+                '}';
+    }
 }

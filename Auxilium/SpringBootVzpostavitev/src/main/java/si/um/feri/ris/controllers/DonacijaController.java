@@ -58,6 +58,7 @@ public class DonacijaController {
     @PostMapping("/dodajDonacijo")
     public ResponseEntity<String> dodajDonacijo(@RequestBody Donacija novaDonacija) {
         try {
+            System.out.println("Nova donacija prejeta: " + novaDonacija);
             System.out.println("Vrednost zneska donacije: " + novaDonacija.getZnesekDonacije());
             donacijaDao.save(novaDonacija);
             return ResponseEntity.ok("Donacija uspešno dodana. " + novaDonacija.getZnesekDonacije() + "€");
@@ -66,6 +67,8 @@ public class DonacijaController {
                     .body("Napaka pri dodajanju donacije: " + e.getMessage());
         }
     }
+
+
 
 
 }

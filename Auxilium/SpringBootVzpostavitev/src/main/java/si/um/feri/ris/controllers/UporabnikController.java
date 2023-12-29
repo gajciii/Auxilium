@@ -83,10 +83,18 @@ public class UporabnikController {
         Uporabnik obstojecUporabnik = uporabnikDao.findById(id).orElse(null);
 
         if (obstojecUporabnik != null){
-            obstojecUporabnik.setUporabniskoIme(posodobljenUporabnik.getUporabniskoIme());
-            obstojecUporabnik.setIme(posodobljenUporabnik.getIme());
-            obstojecUporabnik.setPriimek(posodobljenUporabnik.getPriimek());
-            obstojecUporabnik.setGeslo(posodobljenUporabnik.getGeslo());
+            if(posodobljenUporabnik.getIme() != null){
+                obstojecUporabnik.setIme(posodobljenUporabnik.getIme());
+            }
+            if(posodobljenUporabnik.getPriimek() != null){
+                obstojecUporabnik.setPriimek(posodobljenUporabnik.getPriimek());
+            }
+            if(posodobljenUporabnik.getUporabniskoIme() != null){
+                obstojecUporabnik.setUporabniskoIme(posodobljenUporabnik.getUporabniskoIme());
+            }
+            if(posodobljenUporabnik.getGeslo() != null){
+                obstojecUporabnik.setGeslo(posodobljenUporabnik.getGeslo());
+            }
 
             Uporabnik novUporabnik = uporabnikDao.save(obstojecUporabnik);
             return ResponseEntity.ok(novUporabnik);

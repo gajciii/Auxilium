@@ -83,5 +83,9 @@ public class OskodovanecController {
         }
     }
 
+    @GetMapping("/mocnejePoskodovanBrezDruzine")
+    public Iterable<Oskodovanec> findMocnejePoskodovanBrezDruzine() {
+        return oskodovanecDao.findMocnejePoskodovanBrezDruzine();
+    }
 
 }

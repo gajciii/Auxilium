@@ -53,4 +53,12 @@ public class Nesreca{
 	public void setOpis(String opis) {
 		this.opis = opis;
 	}
+
+	public Administrator getAdministrator() {
+		return administrator;
+	}
+
+	public void setAdministrator(Administrator administrator) {
+		this.administrator = administrator;
+	}
 }

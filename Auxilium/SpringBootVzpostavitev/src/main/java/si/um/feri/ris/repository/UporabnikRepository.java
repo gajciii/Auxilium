@@ -20,4 +20,7 @@ public interface UporabnikRepository extends JpaRepository<Uporabnik, Long> {
             "HAVING SUM(d.znesekDonacije) > 500 AND COUNT(DISTINCT d) >= 3")
     List<Uporabnik> pridobiUporabnikeZVisokimiDonacijami();
 
+    @Query("SELECT u FROM Uporabnik u")
+    List<Uporabnik> findByUporabniskoIme(String uporabniskoIme);
+
 }

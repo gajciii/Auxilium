@@ -1,5 +1,6 @@
 package si.um.feri.ris.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import si.um.feri.ris.models.Oskodovanec;
@@ -82,5 +83,46 @@ public class UporabnikController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PostMapping("/registracija")
+    public ResponseEntity<String> regisracijaUporabnika(@RequestBody Uporabnik novUporabnik) {
+        try {
+            List<Uporabnik> obstojecUporabnik = uporabnikDao.findByUporabniskoIme(novUporabnik.getUporabniskoIme());
+            if(obstojecUporabnik.isEmpty()){
+                uporabnikDao.save(novUporabnik);
+                return ResponseEntity.ok(novUporabnik.getUporabniskoIme() + " uspešno registriran");
+            }
+            else{
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Uporabnik s tem uporabniškim imenom že obstaja");
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Napaka pri registraciji uporabnika: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/prijava")
+    public ResponseEntity<String> prijavaUporabnika(@RequestBody Uporabnik prijavljenUporabnik) {
+        try {
+            if (prijavljenUporabnik.getUporabniskoIme() == null || prijavljenUporabnik.getGeslo() == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Uporabniško ime ali geslo manjka.");
+            }
+
+            List<Uporabnik> uporabnik = uporabnikDao.findByUporabniskoIme(prijavljenUporabnik.getUporabniskoIme());
+
+            if (uporabnik.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Uporabnik s tem uporabniškim imenom ne obstaja");
+            } else if (!uporabnik.get(0).getGeslo().equals(prijavljenUporabnik.getGeslo())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Napačno geslo");
+            } else {
+                return ResponseEntity.ok("Prijava uspešna");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Napaka pri prijavi uporabnika: " + e.getMessage());
+        }
+    }
+
 
 }

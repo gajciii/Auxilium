@@ -28,7 +28,7 @@ public class NesrecaController {
     @GetMapping("/{id}")
     public ResponseEntity<Nesreca> vrniNesrecoPoId(@PathVariable Long id) {
         try {
-            Nesreca nesreca = nesrecaDAO.findById(id).orElse(null);
+            Nesreca nesreca = nesrecaDAO.findNesrecaById(id).get(0);
 
             return ResponseEntity.ok(nesreca);
         } catch (Exception e) {

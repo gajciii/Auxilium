@@ -20,6 +20,16 @@ public class Nesreca{
 	private String opis;
 	private String lokacija;
 
+	public Nesreca(Date datum, String opis, String lokacija) {
+		this.datum = datum;
+		this.opis = opis;
+		this.lokacija = lokacija;
+	}
+
+	public Nesreca() {
+
+	}
+
 	public Date getDatum() {
 		return this.datum;
 	}

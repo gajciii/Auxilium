@@ -4,6 +4,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import si.um.feri.ris.models.Nesreca;
 import si.um.feri.ris.repository.ListNesrec;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+
 @RestController
 @RequestMapping("/nesrece")
 public class NesrecaController {
@@ -74,5 +79,20 @@ public class NesrecaController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("/krajDatum")
+    public Iterable<Nesreca> vrniNesrecoPoKrajDatumBeseda() {
+        LocalDate datumOd = LocalDate.of(2023, 1, 1);
+        LocalDate datumDo = LocalDate.of(2024, 1, 1);
+        String kraj = "Slovenija";
+        String beseda = "prometna nesreča";
+
+        return nesrecaDAO.findNesreceByDatumKrajBeseda(
+                Date.from(datumOd.atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                Date.from(datumDo.atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                kraj,
+                beseda
+        );
+    }
+
 
 }

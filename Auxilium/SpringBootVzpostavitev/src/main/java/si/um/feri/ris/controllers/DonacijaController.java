@@ -44,8 +44,13 @@ public class DonacijaController {
     public ResponseEntity<Donacija> urediDonacijo(@PathVariable Long id, @RequestBody Donacija posodobljenaDonacija){
         Donacija obstojecaDonacija = donacijaDao.findById(id).orElse(null);
         if(obstojecaDonacija != null){
-            obstojecaDonacija.setZnesekDonacije(posodobljenaDonacija.getZnesekDonacije());
-            obstojecaDonacija.setOskodovanci(posodobljenaDonacija.getOskodovanci());
+            if(posodobljenaDonacija.getOskodovanci() != null){
+                obstojecaDonacija.setOskodovanci(posodobljenaDonacija.getOskodovanci());
+            }
+            if (posodobljenaDonacija.getZnesekDonacije() != 0.0){
+                obstojecaDonacija.setZnesekDonacije(posodobljenaDonacija.getZnesekDonacije());
+            }
+
             donacijaDao.save(obstojecaDonacija);
             return ResponseEntity.ok(obstojecaDonacija);
         }

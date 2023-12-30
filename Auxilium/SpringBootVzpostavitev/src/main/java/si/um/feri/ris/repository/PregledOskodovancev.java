@@ -14,4 +14,12 @@ public interface PregledOskodovancev extends CrudRepository<Oskodovanec, Long> {
 	@Query("SELECT o FROM Oskodovanec o WHERE o.mocnejePoskodovan = true AND o.imaDruzino = false")
 	List<Oskodovanec> findMocnejePoskodovanBrezDruzine();
 
+		@Query("SELECT o FROM Oskodovanec o " +
+				"WHERE (o.ime LIKE 'a%' OR o.ime LIKE 'b%' OR o.ime LIKE 'm%') " +
+				"AND (o.priimek LIKE 'c%' OR o.priimek LIKE 'd%' OR o.priimek LIKE 'e%' OR o.priimek LIKE 'v%') " +
+				"AND o.imaDruzino = true " +
+				"AND o.mocnejePoskodovan = true")
+		List<Oskodovanec> findOskodovanciByVse();
+
+
 }

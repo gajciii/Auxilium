@@ -59,13 +59,11 @@ public class UporabnikController {
         Optional<Uporabnik> najdenUporabnik = uporabnikDao.findById(uporabnikId);
         if (najdenUporabnik.isPresent()) {
             Uporabnik uporabnik = najdenUporabnik.get();
-
-            // Ustvarjanje nove donacije
+            
             Donacija novaDonacijaEntiteta = new Donacija();
             novaDonacijaEntiteta.setZnesekDonacije(novaDonacija.getZnesekDonacije());
             novaDonacijaEntiteta = donacijaDao.save(novaDonacijaEntiteta);
 
-            // Povezava med uporabnikom in novo donacijo
             uporabnik.dodajDonacijo(novaDonacijaEntiteta);
             uporabnikDao.save(uporabnik);
 

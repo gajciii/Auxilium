@@ -28,6 +28,12 @@ public class Uporabnik {
     private String ime;
     private String priimek;
 
+    public Uporabnik(String uporabniskoIme, String ime, String priimek) {
+        this.uporabniskoIme = uporabniskoIme;
+        this.ime = ime;
+        this.priimek = priimek;
+    }
+
 
     public Donacija dodajDonacijo(Donacija donacija) {
         this.donacije.add(donacija);

@@ -21,5 +21,8 @@ public interface PregledOskodovancev extends CrudRepository<Oskodovanec, Long> {
 				"AND o.mocnejePoskodovan = true")
 		List<Oskodovanec> findOskodovanciByVse();
 
+	@Query("SELECT DISTINCT o FROM Oskodovanec o JOIN o.donacije d")
+	List<Oskodovanec> najdiOskodovanceKiSoPrejeliDonacijo();
+
 
 }

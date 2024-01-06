@@ -8,6 +8,7 @@ import si.um.feri.ris.repository.ListNesrec;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/nesrece")
@@ -30,6 +31,11 @@ public class NesrecaController {
         return nesrecaDAO.save(nesreca);
     }
 
+    @GetMapping("/nesreceVecKotTriOskodovanci")
+    public ResponseEntity<List<Nesreca>> getNesreceWithThreeOrMoreOskodovanci() {
+        List<Nesreca> NesrecaTriAliVec = nesrecaDAO.findNesrecaPoskodovaniTriAliVec();
+        return ResponseEntity.ok(NesrecaTriAliVec);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Nesreca> vrniNesrecoPoId(@PathVariable Long id) {
         try {

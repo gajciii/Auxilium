@@ -24,5 +24,6 @@ public interface ListNesrec extends CrudRepository<Nesreca, Long> {
 											   @Param("location") String location,
 											   @Param("descriptionKeyword") String descriptionKeyword);
 
-
+	@Query("SELECT n FROM Nesreca n WHERE SIZE(n.oskodovanci) >= 3")
+	List<Nesreca> findNesrecaPoskodovaniTriAliVec();
 }

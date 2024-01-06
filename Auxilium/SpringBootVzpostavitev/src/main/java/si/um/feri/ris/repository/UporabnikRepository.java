@@ -20,6 +20,8 @@ public interface UporabnikRepository extends JpaRepository<Uporabnik, Long> {
             "HAVING SUM(d.znesekDonacije) > 500 AND COUNT(DISTINCT d) >= 3")
     List<Uporabnik> pridobiUporabnikeZVisokimiDonacijami();
 
+
+
 //    @Query("SELECT u FROM Uporabnik u")
 //    List<Uporabnik> findByUporabniskoIme(String uporabniskoIme);
     @Query("SELECT u FROM Uporabnik u WHERE LOWER(u.uporabniskoIme) = LOWER(:uporabniskoIme)")
@@ -28,6 +30,29 @@ public interface UporabnikRepository extends JpaRepository<Uporabnik, Long> {
     @Query("SELECT DISTINCT new si.um.feri.ris.models.Uporabnik(u.ime, u.priimek, u.uporabniskoIme) FROM Uporabnik u JOIN u.donacije d ")
     List<Uporabnik> najdiUporabnikeKiSoDonirali();
 
+    @Query("SELECT u FROM Uporabnik u " +
+            "JOIN u.donacije d " +
+            "GROUP BY u.id " +
+            "HAVING SUM(d.znesekDonacije) > 10")
+    List<Uporabnik> findDonatorjiZnesekVecjiOd10();
+
+    @Query("SELECT u FROM Uporabnik u " +
+            "JOIN u.donacije d " +
+            "GROUP BY u.id " +
+            "HAVING SUM(d.znesekDonacije) > 100")
+    List<Uporabnik> findDonatorjiZnesekVecjiOd100();
+
+    @Query("SELECT u FROM Uporabnik u " +
+            "JOIN u.donacije d " +
+            "GROUP BY u.id " +
+            "HAVING SUM(d.znesekDonacije) > 1000")
+    List<Uporabnik> findDonatorjiZnesekVecjiOd1000();
+
+    @Query("SELECT u FROM Uporabnik u " +
+            "JOIN u.donacije d " +
+            "GROUP BY u.id " +
+            "HAVING SUM(d.znesekDonacije) > 10000")
+    List<Uporabnik> findDonatorjiZnesekVecjiOd10000();
 
 
 }

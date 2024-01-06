@@ -21,6 +21,7 @@ public class UporabnikController {
 
     @Autowired
     private UporabnikRepository uporabnikDao;
+
     @GetMapping("/donacije")
     public Iterable<Donacija> seznamDonacij() {
         return donacijaDao.findAll();
@@ -32,19 +33,18 @@ public class UporabnikController {
     }
 
     @GetMapping("/uporabnik/{id}")
-    public ResponseEntity<Uporabnik> uporabnikID(@PathVariable Long id){
+    public ResponseEntity<Uporabnik> uporabnikID(@PathVariable Long id) {
         Optional<Uporabnik> uporabnik = uporabnikDao.findUporabnikById(id);
-        if(uporabnik.isPresent()){
+        if (uporabnik.isPresent()) {
             return ResponseEntity.ok(uporabnik.get());
-        }
-        else {
+        } else {
             return ResponseEntity.notFound().build();
 
         }
     }
 
     @GetMapping("/TopDonatorji")
-    public List<Uporabnik> pridobiTopDonatorje(){
+    public List<Uporabnik> pridobiTopDonatorje() {
         return uporabnikDao.pridobiUporabnikeZVisokimiDonacijami();
     }
 
@@ -59,7 +59,7 @@ public class UporabnikController {
         Optional<Uporabnik> najdenUporabnik = uporabnikDao.findById(uporabnikId);
         if (najdenUporabnik.isPresent()) {
             Uporabnik uporabnik = najdenUporabnik.get();
-            
+
             Donacija novaDonacijaEntiteta = new Donacija();
             novaDonacijaEntiteta.setZnesekDonacije(novaDonacija.getZnesekDonacije());
             novaDonacijaEntiteta = donacijaDao.save(novaDonacijaEntiteta);
@@ -74,8 +74,6 @@ public class UporabnikController {
     }
 
 
-
-
     @DeleteMapping("/uporabniki/{ime}")
     public ResponseEntity<String> odstraniUporabnikePoImenu(@PathVariable String ime) {
         List<Uporabnik> uporabniki = uporabnikDao.findByIme(ime);
@@ -88,27 +86,26 @@ public class UporabnikController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Uporabnik> urediPodatkeUporabnika(@PathVariable Long id, @RequestBody Uporabnik posodobljenUporabnik){
+    public ResponseEntity<Uporabnik> urediPodatkeUporabnika(@PathVariable Long id, @RequestBody Uporabnik posodobljenUporabnik) {
         Uporabnik obstojecUporabnik = uporabnikDao.findById(id).orElse(null);
 
-        if (obstojecUporabnik != null){
-            if(posodobljenUporabnik.getIme() != null){
+        if (obstojecUporabnik != null) {
+            if (posodobljenUporabnik.getIme() != null) {
                 obstojecUporabnik.setIme(posodobljenUporabnik.getIme());
             }
-            if(posodobljenUporabnik.getPriimek() != null){
+            if (posodobljenUporabnik.getPriimek() != null) {
                 obstojecUporabnik.setPriimek(posodobljenUporabnik.getPriimek());
             }
-            if(posodobljenUporabnik.getUporabniskoIme() != null){
+            if (posodobljenUporabnik.getUporabniskoIme() != null) {
                 obstojecUporabnik.setUporabniskoIme(posodobljenUporabnik.getUporabniskoIme());
             }
-            if(posodobljenUporabnik.getGeslo() != null){
+            if (posodobljenUporabnik.getGeslo() != null) {
                 obstojecUporabnik.setGeslo(posodobljenUporabnik.getGeslo());
             }
 
             Uporabnik novUporabnik = uporabnikDao.save(obstojecUporabnik);
             return ResponseEntity.ok(novUporabnik);
-        }
-        else {
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
@@ -117,15 +114,13 @@ public class UporabnikController {
     public ResponseEntity<String> regisracijaUporabnika(@RequestBody Uporabnik novUporabnik) {
         try {
             List<Uporabnik> obstojecUporabnik = uporabnikDao.findByUporabniskoIme(novUporabnik.getUporabniskoIme());
-            if(obstojecUporabnik.isEmpty()){
+            if (obstojecUporabnik.isEmpty()) {
                 uporabnikDao.save(novUporabnik);
                 return ResponseEntity.ok(novUporabnik.getUporabniskoIme() + " uspešno registriran");
-            }
-            else{
+            } else {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Uporabnik s tem uporabniškim imenom že obstaja " + novUporabnik.getUporabniskoIme());
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Napaka pri registraciji uporabnika: " + e.getMessage());
         }
@@ -154,8 +149,28 @@ public class UporabnikController {
     }
 
     @GetMapping("veckratniDonatorji")
-    public List<Uporabnik> pridobiVeckratneDonatorje(){
+    public List<Uporabnik> pridobiVeckratneDonatorje() {
         return uporabnikDao.najdiUporabnikeKiSoDonirali();
     }
 
+
+    @GetMapping("/DonatorjiNad10")
+    public List<Uporabnik> pridobiDonatorjeZnesekVecjiOd10() {
+        return uporabnikDao.findDonatorjiZnesekVecjiOd10();
+    }
+
+    @GetMapping("/DonatorjiNad100")
+    public List<Uporabnik> pridobiDonatorjeZnesekVecjiOd100() {
+        return uporabnikDao.findDonatorjiZnesekVecjiOd100();
+    }
+
+    @GetMapping("/DonatorjiNad1000")
+    public List<Uporabnik> pridobiDonatorjeZnesekVecjiOd1000() {
+        return uporabnikDao.findDonatorjiZnesekVecjiOd1000();
+    }
+
+    @GetMapping("/DonatorjiNad10000")
+    public List<Uporabnik> pridobiDonatorjeZnesekVecjiOd10000() {
+        return uporabnikDao.findDonatorjiZnesekVecjiOd10000();
+    }
 }

@@ -94,9 +94,9 @@ public class OskodovanecController {
     }
 
 //    vsaj 5 donacij:
-//    @GetMapping("/prejeteDonacije")
-//    public Iterable<Oskodovanec> prejeliDonacijo() {
-//        return oskodovanecDao.najdiOskodovanceKiSoPrejeliDonacijo();
-//    }
+    @GetMapping("/prejeteDonacije")
+    public Iterable<Oskodovanec> prejeliDonacijo() {
+        return oskodovanecDao.najdiOskodovanceKiSoPrejeliDonacijo();
+    }
 
 }

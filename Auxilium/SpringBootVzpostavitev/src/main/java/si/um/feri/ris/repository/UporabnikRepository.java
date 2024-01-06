@@ -25,6 +25,8 @@ public interface UporabnikRepository extends JpaRepository<Uporabnik, Long> {
     @Query("SELECT u FROM Uporabnik u WHERE LOWER(u.uporabniskoIme) = LOWER(:uporabniskoIme)")
     List<Uporabnik> findByUporabniskoIme(String uporabniskoIme);
 
+    @Query("SELECT DISTINCT new si.um.feri.ris.models.Uporabnik(u.ime, u.priimek, u.uporabniskoIme) FROM Uporabnik u JOIN u.donacije d ")
+    List<Uporabnik> najdiUporabnikeKiSoDonirali();
 
 
 

@@ -155,5 +155,9 @@ public class UporabnikController {
         }
     }
 
+    @GetMapping("veckratniDonatorji")
+    public List<Uporabnik> pridobiVeckratneDonatorje(){
+        return uporabnikDao.najdiUporabnikeKiSoDonirali();
+    }
 
 }

@@ -34,11 +34,15 @@ public class Uporabnik {
         this.priimek = priimek;
     }
 
+    public Uporabnik() {
 
-    public Donacija dodajDonacijo(Donacija donacija) {
-        this.donacije.add(donacija);
-        return donacija;
     }
+
+
+    public void dodajDonacijo(Donacija donacija) {
+        this.donacije.add(donacija);
+    }
+
 
     public long getId() {
         return id;

@@ -60,11 +60,13 @@ public class UporabnikController {
         if (najdenUporabnik.isPresent()) {
             Uporabnik uporabnik = najdenUporabnik.get();
 
-            Donacija novaDonacijaZnesek = new Donacija();
-            novaDonacijaZnesek.setZnesekDonacije(novaDonacija.getZnesekDonacije());
-            donacijaDao.save(novaDonacijaZnesek);
+            // Ustvarjanje nove donacije
+            Donacija novaDonacijaEntiteta = new Donacija();
+            novaDonacijaEntiteta.setZnesekDonacije(novaDonacija.getZnesekDonacije());
+            novaDonacijaEntiteta = donacijaDao.save(novaDonacijaEntiteta);
 
-            uporabnik.dodajDonacijo(novaDonacijaZnesek);
+            // Povezava med uporabnikom in novo donacijo
+            uporabnik.dodajDonacijo(novaDonacijaEntiteta);
             uporabnikDao.save(uporabnik);
 
             return ResponseEntity.ok("Donacija uspešno dodana uporabniku.");
@@ -72,6 +74,8 @@ public class UporabnikController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Uporabnik ni bil najden.");
         }
     }
+
+
 
 
     @DeleteMapping("/uporabniki/{ime}")
@@ -112,7 +116,7 @@ public class UporabnikController {
     }
 
     @PostMapping("/registracija")
-    public ResponseEntity<String> registracijaUporabnika(@RequestBody Uporabnik novUporabnik) {
+    public ResponseEntity<String> regisracijaUporabnika(@RequestBody Uporabnik novUporabnik) {
         try {
             List<Uporabnik> obstojecUporabnik = uporabnikDao.findByUporabniskoIme(novUporabnik.getUporabniskoIme());
             if(obstojecUporabnik.isEmpty()){
@@ -151,9 +155,5 @@ public class UporabnikController {
         }
     }
 
-    @GetMapping("/donacijeUporabnikov")
-    public Iterable<Uporabnik> vsiKiSoDonirali() {
-        return uporabnikDao.najdiUporabnikeKiSoDonirali();
-    }
 
 }

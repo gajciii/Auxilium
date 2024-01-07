@@ -1,5 +1,10 @@
 package si.um.feri.ris.controllers;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.pdfbox.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,9 +13,16 @@ import si.um.feri.ris.models.Uporabnik;
 import si.um.feri.ris.models.Donacija;
 import si.um.feri.ris.repository.PregledDonacij;
 import si.um.feri.ris.repository.UporabnikRepository;
-
+import si.um.feri.ris.PdfGenerator.PdfController;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/uporabniki")
@@ -54,6 +66,8 @@ public class UporabnikController {
 //        return uporabnik.dodajDonacijo(donacija);
 //    }
 
+
+
     @PostMapping("/dodajDonacijoUporabniku/{uporabnikId}")
     public ResponseEntity<String> dodajDonacijoUporabniku(@PathVariable Long uporabnikId, @RequestBody Donacija novaDonacija) {
         Optional<Uporabnik> najdenUporabnik = uporabnikDao.findById(uporabnikId);
@@ -67,11 +81,37 @@ public class UporabnikController {
             uporabnik.dodajDonacijo(novaDonacijaEntiteta);
             uporabnikDao.save(uporabnik);
 
+            try {
+                generateDonationPdf(uporabnik, novaDonacijaEntiteta);
+            } catch (IOException | DocumentException e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error generating PDF.");
+            }
+
             return ResponseEntity.ok("Donacija uspešno dodana uporabniku.");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Uporabnik ni bil najden.");
         }
     }
+
+    private void generateDonationPdf(Uporabnik uporabnik, Donacija donacija) throws IOException, DocumentException {
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream("RacunDonacije.pdf"));
+        document.open();
+
+        Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+        Chunk chunk = new Chunk("Racun donacije\n\n", font);
+        document.add(chunk);
+
+        document.add(new Paragraph("Uporabnik: " + uporabnik.getIme() + " " + uporabnik.getPriimek()));
+        document.add(new Paragraph("Znesek donacije: " + donacija.getZnesekDonacije()));
+
+        document.close();
+    }
+
+
+
+
 
 
     @DeleteMapping("/uporabniki/{ime}")

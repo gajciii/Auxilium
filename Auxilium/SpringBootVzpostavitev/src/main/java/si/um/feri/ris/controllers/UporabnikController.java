@@ -177,7 +177,7 @@ public class UporabnikController {
         return uporabnikDao.findDonatorjiZnesekVecjiOd10000();
     }
 
-    @GetMapping("/oskodovanciBrezDonacijeInLokacijaPodobnaNaslovu/{uporabnikId}")
+    @GetMapping("/oskodvanciVBlizini/{uporabnikId}")
     public ResponseEntity<List<Oskodovanec>> getOskodovanciBrezDonacijeInLokacijaPodobnaNaslovu(@PathVariable Long uporabnikId) {
         Optional<Uporabnik> uporabnikOpt = uporabnikDao.findById(uporabnikId);
         if (uporabnikOpt.isPresent()) {

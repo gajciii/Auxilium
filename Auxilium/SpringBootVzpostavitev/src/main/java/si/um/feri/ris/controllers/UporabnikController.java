@@ -5,7 +5,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.apache.pdfbox.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import si.um.feri.ris.models.Oskodovanec;
@@ -15,6 +17,8 @@ import si.um.feri.ris.EmailSender.EmailSendingService;
 import si.um.feri.ris.repository.PregledDonacij;
 import si.um.feri.ris.repository.UporabnikRepository;
 import si.um.feri.ris.PdfGenerator.PdfController;
+
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,34 +77,41 @@ public class UporabnikController {
 
 
     @PostMapping("/dodajDonacijoUporabniku/{uporabnikId}")
-    public ResponseEntity<String> dodajDonacijoUporabniku(@PathVariable Long uporabnikId, @RequestBody Donacija novaDonacija) {
-        Optional<Uporabnik> najdenUporabnik = uporabnikDao.findById(uporabnikId);
-        if (najdenUporabnik.isPresent()) {
-            Uporabnik uporabnik = najdenUporabnik.get();
+    public ResponseEntity<byte[]> dodajDonacijoUporabniku(@PathVariable Long uporabnikId, @RequestBody Donacija novaDonacija) {
+        try {
+            Optional<Uporabnik> najdenUporabnik = uporabnikDao.findById(uporabnikId);
+            if (najdenUporabnik.isPresent()) {
+                Uporabnik uporabnik = najdenUporabnik.get();
 
-            Donacija novaDonacijaEntiteta = new Donacija();
-            novaDonacijaEntiteta.setZnesekDonacije(novaDonacija.getZnesekDonacije());
-            novaDonacijaEntiteta = donacijaDao.save(novaDonacijaEntiteta);
+                Donacija novaDonacijaEntiteta = new Donacija();
+                novaDonacijaEntiteta.setZnesekDonacije(novaDonacija.getZnesekDonacije());
+                novaDonacijaEntiteta = donacijaDao.save(novaDonacijaEntiteta);
 
-            uporabnik.dodajDonacijo(novaDonacijaEntiteta);
-            uporabnikDao.save(uporabnik);
+                uporabnik.dodajDonacijo(novaDonacijaEntiteta);
+                uporabnikDao.save(uporabnik);
 
-            try {
-                generateDonationPdf(uporabnik, novaDonacijaEntiteta);
-            } catch (IOException | DocumentException e) {
-                e.printStackTrace();
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error generating PDF.");
+                byte[] pdfBytes = generateDonationPdf(uporabnik, novaDonacijaEntiteta);
+
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_PDF);
+                headers.setContentDispositionFormData("attachment", "RacunDonacije.pdf");
+                headers.setContentLength(pdfBytes.length);
+
+                return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
-
-            return ResponseEntity.ok("Donacija uspešno dodana uporabniku.");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Uporabnik ni bil najden.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
-    private void generateDonationPdf(Uporabnik uporabnik, Donacija donacija) throws IOException, DocumentException {
+
+    private byte[] generateDonationPdf(Uporabnik uporabnik, Donacija donacija) throws IOException, DocumentException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream("RacunDonacije.pdf"));
+        PdfWriter.getInstance(document, byteArrayOutputStream);
         document.open();
 
         Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
@@ -111,7 +122,10 @@ public class UporabnikController {
         document.add(new Paragraph("Znesek donacije: " + donacija.getZnesekDonacije()));
 
         document.close();
+
+        return byteArrayOutputStream.toByteArray();
     }
+
 
 
 

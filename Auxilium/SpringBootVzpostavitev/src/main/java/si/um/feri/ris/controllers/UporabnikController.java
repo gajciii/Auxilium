@@ -1,5 +1,6 @@
 package si.um.feri.ris.controllers;
 import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfWriter;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.pdfbox.io.IOUtils;
@@ -111,8 +112,18 @@ public class UporabnikController {
     private byte[] generateDonationPdf(Uporabnik uporabnik, Donacija donacija) throws IOException, DocumentException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         Document document = new Document();
-        PdfWriter.getInstance(document, byteArrayOutputStream);
+        PdfWriter writer = PdfWriter.getInstance(document, byteArrayOutputStream);
         document.open();
+
+//        try{
+//            Path path = Paths.get(ClassLoader.getSystemResource("auxilium.jpg").toURI());
+//            Image img = Image.getInstance(path.toAbsolutePath().toString());
+//            img.setAbsolutePosition(200, 500);
+//            img.scaleAbsolute(200, 100);
+//            document.add(img);
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        }
 
         Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
         Chunk chunk = new Chunk("Racun donacije\n\n", font);
@@ -125,6 +136,7 @@ public class UporabnikController {
 
         return byteArrayOutputStream.toByteArray();
     }
+
 
 
 

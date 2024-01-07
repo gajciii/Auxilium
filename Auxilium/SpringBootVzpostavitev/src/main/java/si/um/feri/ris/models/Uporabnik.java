@@ -28,6 +28,8 @@ public class Uporabnik {
     private String ime;
     private String priimek;
 
+    private String naslov;
+
     public Uporabnik(String uporabniskoIme, String ime, String priimek) {
         this.uporabniskoIme = uporabniskoIme;
         this.ime = ime;
@@ -82,5 +84,13 @@ public class Uporabnik {
 
     public void setPriimek(String priimek) {
         this.priimek = priimek;
+    }
+
+    public String getNaslov() {
+        return naslov;
+    }
+
+    public void setNaslov(String naslov) {
+        this.naslov = naslov;
     }
 }

@@ -102,6 +102,9 @@ public class UporabnikController {
             if (posodobljenUporabnik.getGeslo() != null) {
                 obstojecUporabnik.setGeslo(posodobljenUporabnik.getGeslo());
             }
+            if (posodobljenUporabnik.getNaslov() != null) {
+                obstojecUporabnik.setNaslov(posodobljenUporabnik.getNaslov());
+            }
 
             Uporabnik novUporabnik = uporabnikDao.save(obstojecUporabnik);
             return ResponseEntity.ok(novUporabnik);
@@ -173,4 +176,22 @@ public class UporabnikController {
     public List<Uporabnik> pridobiDonatorjeZnesekVecjiOd10000() {
         return uporabnikDao.findDonatorjiZnesekVecjiOd10000();
     }
+
+    @GetMapping("/oskodovanciBrezDonacijeInLokacijaPodobnaNaslovu/{uporabnikId}")
+    public ResponseEntity<List<Oskodovanec>> getOskodovanciBrezDonacijeInLokacijaPodobnaNaslovu(@PathVariable Long uporabnikId) {
+        Optional<Uporabnik> uporabnikOpt = uporabnikDao.findById(uporabnikId);
+        if (uporabnikOpt.isPresent()) {
+            Uporabnik uporabnik = uporabnikOpt.get();
+
+            String naslovUporabnika = uporabnik.getNaslov();
+
+            List<Oskodovanec> oskodovanci = uporabnikDao.findOskodovanciBrezDonacijeInPodobnaLokacijaNesrece(naslovUporabnika);
+
+            return ResponseEntity.ok(oskodovanci);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 }

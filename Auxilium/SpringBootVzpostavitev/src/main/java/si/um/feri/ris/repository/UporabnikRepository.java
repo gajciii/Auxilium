@@ -3,6 +3,7 @@ package si.um.feri.ris.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import si.um.feri.ris.models.Oskodovanec;
 import si.um.feri.ris.models.Uporabnik;
 
 import java.util.List;
@@ -54,6 +55,11 @@ public interface UporabnikRepository extends JpaRepository<Uporabnik, Long> {
             "GROUP BY u.id " +
             "HAVING SUM(d.znesekDonacije) > 10000")
     List<Uporabnik> findDonatorjiZnesekVecjiOd10000();
+
+    @Query("SELECT o FROM Oskodovanec o WHERE o NOT IN (SELECT d.oskodovanci FROM o.donacije d) " +
+            "AND EXISTS (SELECT n FROM o.nesrece n WHERE n.lokacija LIKE CONCAT('%', :naslovUporabnika, '%'))")
+    List<Oskodovanec> findOskodovanciBrezDonacijeInPodobnaLokacijaNesrece(@Param("naslovUporabnika") String naslovUporabnika);
+
 
 
 }

@@ -121,4 +121,22 @@ public class AdministratorController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Napaka pri prijavi administratorja: " + e.getMessage());
         }
     }
+
+
+    @PostMapping("/registracijaAdmina")
+    public ResponseEntity<String> regisracijaAdmina(@RequestBody Administrator novAdmin) {
+        try {
+            List<Administrator> obstojecAdmin = administratorDAO.findByUporabniskoImeAdmin(novAdmin.getUporabniskoIme());
+            if (obstojecAdmin.isEmpty()) {
+                administratorDAO.save(novAdmin);
+                return ResponseEntity.ok(novAdmin.getUporabniskoIme() + " uspešno registriran");
+            } else {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Administrator s tem uporabniškim imenom že obstaja " + novAdmin.getUporabniskoIme());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Napaka pri registraciji administratorja: " + e.getMessage());
+        }
+    }
+
 }

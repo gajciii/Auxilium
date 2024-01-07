@@ -17,4 +17,5 @@ public interface AdministratorRepository extends CrudRepository <Administrator, 
     List<Nesreca> findAdministratorById(long id);
 
 
+
 }

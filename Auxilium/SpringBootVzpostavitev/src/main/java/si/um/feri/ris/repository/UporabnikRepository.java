@@ -21,6 +21,7 @@ public interface UporabnikRepository extends JpaRepository<Uporabnik, Long> {
     List<Uporabnik> pridobiUporabnikeZVisokimiDonacijami();
 
 
+//hihi
 
 //    @Query("SELECT u FROM Uporabnik u")
 //    List<Uporabnik> findByUporabniskoIme(String uporabniskoIme);

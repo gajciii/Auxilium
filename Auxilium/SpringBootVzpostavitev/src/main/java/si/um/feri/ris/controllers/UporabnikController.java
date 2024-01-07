@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import si.um.feri.ris.models.Oskodovanec;
 import si.um.feri.ris.models.Uporabnik;
 import si.um.feri.ris.models.Donacija;
+import si.um.feri.ris.EmailSender.EmailSendingService;
 import si.um.feri.ris.repository.PregledDonacij;
 import si.um.feri.ris.repository.UporabnikRepository;
 import si.um.feri.ris.PdfGenerator.PdfController;
@@ -33,6 +34,9 @@ public class UporabnikController {
 
     @Autowired
     private UporabnikRepository uporabnikDao;
+
+    @Autowired
+    private EmailSendingService emailSendingService;
 
     @GetMapping("/donacije")
     public Iterable<Donacija> seznamDonacij() {
@@ -154,11 +158,13 @@ public class UporabnikController {
     }
 
     @PostMapping("/registracija")
-    public ResponseEntity<String> regisracijaUporabnika(@RequestBody Uporabnik novUporabnik) {
+    public ResponseEntity<String> registracijaUporabnika(@RequestBody Uporabnik novUporabnik) {
         try {
             List<Uporabnik> obstojecUporabnik = uporabnikDao.findByUporabniskoIme(novUporabnik.getUporabniskoIme());
             if (obstojecUporabnik.isEmpty()) {
                 uporabnikDao.save(novUporabnik);
+                //emailSendingService.testemail();
+                //emailSendingService.sendRegistrationEmail(novUporabnik); // Send registration email
                 return ResponseEntity.ok(novUporabnik.getUporabniskoIme() + " uspešno registriran");
             } else {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Uporabnik s tem uporabniškim imenom že obstaja " + novUporabnik.getUporabniskoIme());

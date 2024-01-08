@@ -190,7 +190,7 @@ public class UporabnikController {
             if (obstojecUporabnik.isEmpty()) {
                 uporabnikDao.save(novUporabnik);
                 //emailSendingService.testemail();
-                //emailSendingService.sendRegistrationEmail(novUporabnik); // Send registration email
+                emailSendingService.sendRegistrationEmail(novUporabnik); // Send registration email
                 return ResponseEntity.ok(novUporabnik.getUporabniskoIme() + " uspešno registriran");
             } else {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Uporabnik s tem uporabniškim imenom že obstaja " + novUporabnik.getUporabniskoIme());

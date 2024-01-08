@@ -115,34 +115,28 @@ public class UporabnikController {
         PdfWriter writer = PdfWriter.getInstance(document, byteArrayOutputStream);
         document.open();
 
-//        try{
-//            Path path = Paths.get(ClassLoader.getSystemResource("auxilium.jpg").toURI());
-//            Image img = Image.getInstance(path.toAbsolutePath().toString());
-//            img.setAbsolutePosition(200, 500);
-//            img.scaleAbsolute(200, 100);
-//            document.add(img);
-//        } catch (URISyntaxException e) {
-//            e.printStackTrace();
-//        }
+        try{
+            Path path = Paths.get(ClassLoader.getSystemResource("aux1.png").toURI());
+            Image img = Image.getInstance(path.toAbsolutePath().toString());
+            img.setAbsolutePosition(150, 400);
+            img.scaleAbsolute(300, 250);
+            document.add(img);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
 
         Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
         Chunk chunk = new Chunk("Racun donacije\n\n", font);
         document.add(chunk);
 
         document.add(new Paragraph("Uporabnik: " + uporabnik.getIme() + " " + uporabnik.getPriimek()));
-        document.add(new Paragraph("Znesek donacije: " + donacija.getZnesekDonacije()));
+        document.add(new Paragraph("Znesek donacije: " + donacija.getZnesekDonacije() + "EUR"));
 
         document.close();
 
         return byteArrayOutputStream.toByteArray();
     }
-
-
-
-
-
-
-
+    
 
     @DeleteMapping("/uporabniki/{ime}")
     public ResponseEntity<String> odstraniUporabnikePoImenu(@PathVariable String ime) {

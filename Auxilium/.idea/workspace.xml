@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd9c2f01-57f7-4cae-ac73-82baad23ee25" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/um/Auxilium/AuxiliumApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/um/Auxilium/controlers/HisaController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/um/Auxilium/controlers/SobaController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/um/Auxilium/models/Hisa.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/um/Auxilium/models/Soba.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/um/Auxilium/repository/HisaRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/um/Auxilium/repository/SobaRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
-    </list>
+    <list default="true" id="cd9c2f01-57f7-4cae-ac73-82baad23ee25" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,15 +27,12 @@
     <option name="generalSettings">
       <MavenGeneralSettings>
         <option name="mavenHome" value="Use Maven wrapper" />
-        <option name="useMavenConfig" value="true" />
       </MavenGeneralSettings>
     </option>
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="workspaceImportEnabled" value="true" />
-      </MavenImportingSettings>
-    </option>
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
   <component name="ProjectId" id="2Z57EVOklEz3JWlyc8yaodUzX7b" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -64,12 +46,16 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.AuxiliumApplication.executor": "Run",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/gajag/OneDrive - Univerza v Mariboru/2. letnik/RIS/Auxilium/Auxilium/SpringBootVzpostavitev",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/tevzstarovasnik/Documents/FAKS/2. letnik/1. semester/RIS/Auxilium/Auxilium",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "spring.configuration.checksum": "55163a6343440bad46749ed4db9633e4",
     "vue.rearranger.settings.migration": "true"
   }
@@ -107,6 +93,7 @@
       <workItem from="1702317664163" duration="699000" />
       <workItem from="1702320136595" duration="638000" />
       <workItem from="1703697833081" duration="36000" />
+      <workItem from="1706035601127" duration="118000" />
     </task>
     <servers />
   </component>

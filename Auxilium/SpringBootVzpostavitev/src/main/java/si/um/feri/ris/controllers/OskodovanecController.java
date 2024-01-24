@@ -1,11 +1,16 @@
 package si.um.feri.ris.controllers;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import si.um.feri.ris.models.Donacija;
 import si.um.feri.ris.models.Oskodovanec;
+import si.um.feri.ris.repository.PregledDonacij;
 import si.um.feri.ris.repository.PregledOskodovancev;
+
+import java.util.Optional;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -14,6 +19,9 @@ public class OskodovanecController {
 
     @Autowired
     private PregledOskodovancev oskodovanecDao;
+
+    @Autowired
+    private PregledDonacij donacijaDao;
 
     @GetMapping("/oskodovanci")
     public Iterable<Oskodovanec> vrniOskodovance() {
@@ -30,6 +38,30 @@ public class OskodovanecController {
 
         return oskodovanecDao.save(oskodovanec);
     }
+    @Transactional
+    @PostMapping("/dodajDonacijoOskodovancu/{oskodovanecId}")
+    public ResponseEntity<byte[]> dodajDonacijoOskodovancu(@PathVariable Long oskodovanecId, @RequestBody Donacija novaDonacija) {
+        try {
+            Optional<Oskodovanec> najdenUporabnik = oskodovanecDao.findById(oskodovanecId);
+            if (najdenUporabnik.isPresent()) {
+                Oskodovanec oskodovanec = najdenUporabnik.get();
+
+                Donacija novaDonacijaEntiteta = new Donacija();
+                novaDonacijaEntiteta.setZnesekDonacije(novaDonacija.getZnesekDonacije());
+                novaDonacijaEntiteta = donacijaDao.save(novaDonacijaEntiteta);
+
+                oskodovanec.dodajDonacijo(novaDonacijaEntiteta);
+                oskodovanecDao.save(oskodovanec);
+                return ResponseEntity.status(HttpStatus.CREATED).body(null);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
 
     @DeleteMapping("/izbrisiOskodovanca/{id}")
     public ResponseEntity<Object> izbrisiOskodovanca(@PathVariable long id){

@@ -19,6 +19,8 @@ public class Oskodovanec {
 	)
 	List<Nesreca> nesrece;
 
+
+
 	@ManyToMany
 	@JoinTable(
 			name = "Oskodovanec_Donacija",

@@ -1,43 +1,42 @@
 // Administrator/Prijava.js
 import React, { useState } from "react";
-import { Button, TextField } from "@mui/material";
 import AuthService from "../../services/AuthService";
 
 const Prijava = ({ onPrijava }) => {
   const [uporabniskoIme, setUporabniskoIme] = useState("");
   const [geslo, setGeslo] = useState("");
 
-  const handlePrijava = async () => {
+  const obdelajPrijava = async () => {
     try {
       const response = await AuthService.login({
         uporabniskoIme: uporabniskoIme,
         geslo: geslo,
       });
 
-      console.log(response); // Obdelaj uspešno prijavo (npr. shranjevanje žetona, preusmeritev itd.)
-      onPrijava(); // Obvesti nadrejeno komponento o uspešni prijavi
+      // Po uspešni prijavi sprožimo dogodek za spremembo stanja v staršu
+      onPrijava();
+
     } catch (error) {
-      console.error("Napaka pri prijavi:", error.message); // Obdelaj napako pri prijavi
+      console.error("Napaka pri prijavi:", error.message);
     }
   };
 
   return (
     <div>
       <p>Prijava</p>
-      <TextField
-        variant="outlined"
+      <input
+        type="text"
+        placeholder="Uporabniško ime"
         value={uporabniskoIme}
-        onChange={(event) => setUporabniskoIme(event.target.value)}
-        label="Uporabniško ime"
-      /><br />
-      <TextField
-        variant="outlined"
-        value={geslo}
-        onChange={(event) => setGeslo(event.target.value)}
-        label="Geslo"
+        onChange={(e) => setUporabniskoIme(e.target.value)}
+      />
+      <input
         type="password"
-      /><br />
-      <Button variant="contained" onClick={handlePrijava}>Prijava</Button>
+        placeholder="Geslo"
+        value={geslo}
+        onChange={(e) => setGeslo(e.target.value)}
+      />
+      <button onClick={obdelajPrijava}>Prijava</button>
     </div>
   );
 };

@@ -11,13 +11,27 @@ const api = axios.create({
 });
 
 const login = async (credentials) => {
-  try {
-    const response = await api.post("/administratorji/prijava", credentials);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+    try {
+        const response = await api.post("/administratorji/prijava", credentials);
+        
+        console.log("Odgovor po prijavi:", response);
+
+        // Preveri, ali odgovor vsebuje veljaven adminId
+        if (response.data !== null && response.data !== "-1") {
+            const adminId = response.data;
+            
+            // Shranite adminId v Local Storage
+            localStorage.setItem("authToken", adminId);
+            
+            console.log("adminId shranjen v Local Storage:", localStorage.getItem("adminId"));
+        }
+    
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
 };
+
 
 const AuthService = {
   login,

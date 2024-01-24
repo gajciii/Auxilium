@@ -1,39 +1,26 @@
-import { Button, TextField } from "@mui/material";
+// Administrator/Administrator.js
 import React, { useState } from "react";
-import api from "../../services/api";
+import Prijava from "./Prijava"; // Uvozi tvojo Prijava komponento
 
 const Administrator = () => {
-    const [uporabniskoIme, setUporabniskoIme] = useState("");
-    const [geslo, setGeslo] = useState("");
+  const [jePrijavljen, setJePrijavljen] = useState(false);
 
-    const dodajAdministratorja = () => {
-        api.post("/administratorji/dodajAdministratorja", {
-            uporabniskoIme: uporabniskoIme,
-            geslo: geslo
-        })
-            .then((result) => console.log(result.data))
-            .catch(error => console.error('AxiosError:', error));
-    }
+  const obdelajPrijava = () => {
+    setJePrijavljen(true);
+  };
 
-    return (
+  return (
+    <div>
+      {!jePrijavljen ? (
+        <Prijava onPrijava={obdelajPrijava} />
+      ) : (
         <div>
-            <p>Dodajanje administratorja</p>
-            <TextField
-                variant="outlined"
-                value={uporabniskoIme}
-                onChange={(event) => setUporabniskoIme(event.target.value)}
-                label="Uporabniško ime"
-            /><br />
-            <TextField
-                variant="outlined"
-                value={geslo}
-                onChange={(event) => setGeslo(event.target.value)}
-                label="Geslo"
-                type="password"
-            /><br />
-            <Button variant="contained" onClick={dodajAdministratorja}>Dodaj administratorja</Button>
+          <p>Uporabnik prijavljen</p>
+          {/* Tukaj lahko dodate druge komponente, ki jih potrebujete */}
         </div>
-    );
+      )}
+    </div>
+  );
 };
 
 export default Administrator;

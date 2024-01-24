@@ -19,18 +19,40 @@ api.interceptors.request.use((config) => {
 });
 
 const dodajNesreco = async (nesrecaData) => {
-    try {
-      const response = await api.post("/nesrece/dodajNesreco", nesrecaData);
-      return response.data;
-    } catch (error) {
-      console.error("Error in dodajNesreco:", error);
-      throw error;
-    }
+  try {
+    const response = await api.post("/nesrece/dodajNesreco", nesrecaData);
+    return response.data;
+  } catch (error) {
+    console.error("Error in dodajNesreco:", error);
+    throw error;
+  }
+};
+
+const urediNesreco = async (id, updatedNesreca) => {
+  try {
+    const response = await api.put(`/nesrece/urediNesreco/${id}`, updatedNesreca);
+    return response.data;
+  } catch (error) {
+    console.error("Error in urediNesreco:", error);
+    throw error;
+  }
+};
+
+const izbrisiNesreco = async (id) => {
+  try {
+    const response = await api.delete(`/nesrece/odstraniNesreco/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error in izbrisiNesreco:", error);
+    throw error;
+  }
 };
 
 const apiWithAuth = {
-    api,
+  api,
   dodajNesreco,
+  urediNesreco,
+  izbrisiNesreco,
   // Add other functions if needed
 };
 

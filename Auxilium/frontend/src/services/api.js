@@ -1,3 +1,4 @@
+// api.js
 import axios from "axios";
 
 const api = axios.create({
@@ -19,18 +20,18 @@ api.interceptors.request.use((config) => {
 
 const dodajNesreco = async (nesrecaData) => {
     try {
-      const response = await api.post("/administratorji", nesrecaData);
+      const response = await api.post("/nesrece/dodajNesreco", nesrecaData);
       return response.data;
     } catch (error) {
       console.error("Error in dodajNesreco:", error);
       throw error;
     }
-  };
+};
 
 const apiWithAuth = {
     api,
   dodajNesreco,
-  // Dodaj ostale funkcije, če obstajajo
+  // Add other functions if needed
 };
 
 export default apiWithAuth;

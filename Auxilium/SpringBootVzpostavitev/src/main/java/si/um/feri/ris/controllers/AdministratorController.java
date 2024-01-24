@@ -12,6 +12,7 @@ import si.um.feri.ris.repository.PregledOskodovancev;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/administratorji")
 public class AdministratorController {

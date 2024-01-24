@@ -11,8 +11,8 @@ const Administrator = () => {
             uporabniskoIme: uporabniskoIme,
             geslo: geslo
         })
-        .then((result) => console.log(result.data))
-        .catch(error => console.error('AxiosError:', error));
+            .then((result) => console.log(result.data))
+            .catch(error => console.error('AxiosError:', error));
     }
 
     return (

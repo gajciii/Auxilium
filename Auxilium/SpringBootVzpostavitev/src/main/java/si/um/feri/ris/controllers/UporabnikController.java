@@ -198,27 +198,27 @@ public class UporabnikController {
         }
     }
 
-    @PostMapping("/prijava")
-    public ResponseEntity<String> prijavaUporabnika(@RequestBody Uporabnik prijavljenUporabnik) {
-        try {
-            if (prijavljenUporabnik.getUporabniskoIme() == null || prijavljenUporabnik.getGeslo() == null) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Uporabniško ime ali geslo manjka.");
-            }
+        @PostMapping("/prijava")
+        public ResponseEntity<String> prijavaUporabnika(@RequestBody Uporabnik prijavljenUporabnik) {
+            try {
+                if (prijavljenUporabnik.getUporabniskoIme() == null || prijavljenUporabnik.getGeslo() == null) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Uporabniško ime ali geslo manjka.");
+                }
 
-            List<Uporabnik> uporabnik = uporabnikDao.findByUporabniskoIme(prijavljenUporabnik.getUporabniskoIme());
+                List<Uporabnik> uporabnik = uporabnikDao.findByUporabniskoIme(prijavljenUporabnik.getUporabniskoIme());
 
-            if (uporabnik.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Uporabnik s tem uporabniškim imenom ne obstaja");
-            } else if (!uporabnik.get(0).getGeslo().equals(prijavljenUporabnik.getGeslo())) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Napačno geslo ali uporabniško ime");
-            } else {
-                return ResponseEntity.ok("Prijava uspešna");
+                if (uporabnik.isEmpty()) {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Uporabnik s tem uporabniškim imenom ne obstaja");
+                } else if (!uporabnik.get(0).getGeslo().equals(prijavljenUporabnik.getGeslo())) {
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Napačno geslo ali uporabniško ime");
+                } else {
+                    return ResponseEntity.ok("Prijava uspešna");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Napaka pri prijavi uporabnika: " + e.getMessage());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Napaka pri prijavi uporabnika: " + e.getMessage());
         }
-    }
 
     @GetMapping("veckratniDonatorji")
     public List<Uporabnik> pridobiVeckratneDonatorje() {

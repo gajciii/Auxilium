@@ -23,12 +23,21 @@ public class Uporabnik {
     List<Donacija> donacije;
 
 
+    private String ime;
     private String uporabniskoIme;
     private String geslo;
-    private String ime;
     private String priimek;
-
+    private String email;
     private String naslov;
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public Uporabnik(String uporabniskoIme, String ime, String priimek) {
         this.uporabniskoIme = uporabniskoIme;

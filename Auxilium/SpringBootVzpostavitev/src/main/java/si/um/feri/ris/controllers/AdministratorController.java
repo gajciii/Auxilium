@@ -115,7 +115,8 @@ public class AdministratorController {
             } else if (!admin.get(0).getGeslo().equals(prijavljenAdmin.getGeslo())) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Napačno geslo");
             } else {
-                return ResponseEntity.ok("Prijava uspešna");
+                Long adminId = admin.get(0).getId();
+                return ResponseEntity.ok(adminId.toString());
             }
         } catch (Exception e) {
             e.printStackTrace();

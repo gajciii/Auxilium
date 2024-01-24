@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import si.um.feri.ris.models.Oskodovanec;
 import si.um.feri.ris.repository.PregledOskodovancev;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/oskodovanci")
 public class OskodovanecController {

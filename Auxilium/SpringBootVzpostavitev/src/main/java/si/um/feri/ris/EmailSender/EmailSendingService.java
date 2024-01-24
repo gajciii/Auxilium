@@ -40,7 +40,7 @@ public class EmailSendingService {
     public void sendRegistrationEmail(Uporabnik uporabnik) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setTo(uporabnik.getUporabniskoIme());
+            message.setTo(uporabnik.getEmail());
             message.setSubject("Registration Confirmation");
             message.setText("Dear " + uporabnik.getUporabniskoIme() + ",\n\nThank you for registering with us!");
 

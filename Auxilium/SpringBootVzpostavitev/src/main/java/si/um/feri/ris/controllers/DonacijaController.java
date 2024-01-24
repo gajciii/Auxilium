@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import si.um.feri.ris.models.Donacija;
 import si.um.feri.ris.repository.PregledDonacij;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/donacije")
 public class DonacijaController {

@@ -29,7 +29,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
-
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/uporabniki")
 public class UporabnikController {
@@ -169,6 +169,9 @@ public class UporabnikController {
             if (posodobljenUporabnik.getNaslov() != null) {
                 obstojecUporabnik.setNaslov(posodobljenUporabnik.getNaslov());
             }
+            if (posodobljenUporabnik.getEmail() != null) {
+                obstojecUporabnik.setEmail(posodobljenUporabnik.getEmail());
+            }
 
             Uporabnik novUporabnik = uporabnikDao.save(obstojecUporabnik);
             return ResponseEntity.ok(novUporabnik);
@@ -207,7 +210,7 @@ public class UporabnikController {
             if (uporabnik.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Uporabnik s tem uporabniškim imenom ne obstaja");
             } else if (!uporabnik.get(0).getGeslo().equals(prijavljenUporabnik.getGeslo())) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Napačno geslo");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Napačno geslo ali uporabniško ime");
             } else {
                 return ResponseEntity.ok("Prijava uspešna");
             }

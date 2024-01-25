@@ -1,5 +1,3 @@
-// Prijava.js
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Make sure you have react-router-dom installed
 import AuthServicesUser from '../../services/AuthServiceUser.js';
@@ -7,21 +5,22 @@ import AuthServicesUser from '../../services/AuthServiceUser.js';
 const Prijava = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
-        // You can use AuthServicesUser here to handle the login logic
-        const loggedIn = await AuthServicesUser.login(username, password);
+        try {
+            const loggedIn = await AuthServicesUser.login(username, password);
 
-        // For simplicity, let's assume login is successful
-        // const loggedIn = true;
-
-        if (loggedIn) {
-            // Redirect to the dashboard or any other page upon successful login
-            history('/');
-        } else {
-            // Handle failed login
-            alert('Login failed. Please check your credentials.');
+            if (loggedIn) {
+                // Redirect to the dashboard or any other page upon successful login
+                navigate('/profil-uporabnik');
+            } else {
+                // Handle failed login
+                alert('Login failed. Please check your credentials.');
+            }
+        } catch (error) {
+            console.error('Error during login:', error.message);
+            // Handle more specific error handling if needed
         }
     };
 

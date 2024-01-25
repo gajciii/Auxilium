@@ -198,27 +198,29 @@ public class UporabnikController {
         }
     }
 
-    @PostMapping("/prijava")
-    public ResponseEntity<String> prijavaUporabnika(@RequestBody Uporabnik prijavljenUporabnik) {
+    @PostMapping("/login")
+    public ResponseEntity<Uporabnik> prijavaUporabnika(@RequestBody Uporabnik prijavljenUporabnik) {
         try {
             if (prijavljenUporabnik.getUporabniskoIme() == null || prijavljenUporabnik.getGeslo() == null) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Uporabniško ime ali geslo manjka.");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
             }
 
             List<Uporabnik> uporabnik = uporabnikDao.findByUporabniskoIme(prijavljenUporabnik.getUporabniskoIme());
 
             if (uporabnik.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Uporabnik s tem uporabniškim imenom ne obstaja");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             } else if (!uporabnik.get(0).getGeslo().equals(prijavljenUporabnik.getGeslo())) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Napačno geslo ali uporabniško ime");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
             } else {
-                return ResponseEntity.ok("Prijava uspešna");
+                // Return the user object
+                return ResponseEntity.ok(uporabnik.get(0));
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Napaka pri prijavi uporabnika: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
 
     @GetMapping("veckratniDonatorji")
     public List<Uporabnik> pridobiVeckratneDonatorje() {

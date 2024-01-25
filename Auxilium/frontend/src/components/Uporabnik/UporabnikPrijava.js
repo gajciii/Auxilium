@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Make sure you have react-router-dom installed
+import { useNavigate } from 'react-router-dom'; 
 import AuthServicesUser from '../../services/AuthServiceUser.js';
 
 const Prijava = () => {
@@ -12,15 +12,14 @@ const Prijava = () => {
             const loggedIn = await AuthServicesUser.login(username, password);
 
             if (loggedIn) {
-                // Redirect to the dashboard or any other page upon successful login
                 navigate('/profil-uporabnik');
             } else {
-                // Handle failed login
+               
                 alert('Login failed. Please check your credentials.');
             }
         } catch (error) {
             console.error('Error during login:', error.message);
-            // Handle more specific error handling if needed
+            
         }
     };
 

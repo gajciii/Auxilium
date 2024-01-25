@@ -12,7 +12,6 @@ const Prijava = ({ onPrijava }) => {
         geslo: geslo,
       });
 
-      // Po uspešni prijavi sprožimo dogodek za spremembo stanja v staršu
       onPrijava();
 
     } catch (error) {

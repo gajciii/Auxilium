@@ -20,7 +20,7 @@ const ProfileService = {
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        // Add any other headers if required
+
                     },
                 }
             );
@@ -31,7 +31,6 @@ const ProfileService = {
     },
 
 
-    // Add other profile-related methods as needed
 };
 
 export default ProfileService;

@@ -5,7 +5,7 @@ import { TextField, Button } from '@mui/material';
 
 const ProfilUporabnik = () => {
     const [user, setUser] = useState({
-        // ... initial user data
+       
     });
 
     const navigate = useNavigate();
@@ -47,10 +47,9 @@ const ProfilUporabnik = () => {
     };
 
     const handleLogout = () => {
-        // Add your logout logic here
-        // For example, clear the user data from sessionStorage and navigate to the login page
+        
         sessionStorage.clear();
-        navigate('/login'); // Update with your login page route
+        navigate('/login');
     };
 
 
@@ -121,7 +120,7 @@ const ProfilUporabnik = () => {
 
 const formContainerStyle = {
     textAlign: "center",
-    maxWidth: "400px", // Adjust the maximum width as needed
+    maxWidth: "400px",
     margin: "0 auto",
 };
 
@@ -136,7 +135,7 @@ const inputStyle = {
 };
 
 const submitButtonStyle = {
-    padding: "10px 15px", // Adjust the padding as needed
+    padding: "10px 15px", 
     fontSize: "16px",
     backgroundColor: "#007bff",
     color: "#fff",
@@ -145,10 +144,10 @@ const submitButtonStyle = {
 };
 
 const logoutButtonStyle = {
-    marginTop: "20px", // Adjust the margin as needed
+    marginTop: "20px",
     padding: "10px 15px",
     fontSize: "16px",
-    backgroundColor: "#dc3545", // Red color for logout button
+    backgroundColor: "#dc3545", 
     color: "#fff",
     borderRadius: "8px",
     cursor: "pointer",

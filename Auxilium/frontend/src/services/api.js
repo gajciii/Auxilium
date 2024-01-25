@@ -58,7 +58,7 @@ const registrirajUporabnika = async (novUporabnik) => {
   }
 };
 
-// Dodaj novo funkcijo za dodajanje donacije
+
 const dodajDonacijo = async (donacijaData) => {
   try {
     const response = await api.post("/uporabniki/dodajDonacijo", donacijaData);
@@ -75,8 +75,8 @@ const apiWithAuth = {
   urediNesreco,
   izbrisiNesreco,
   registrirajUporabnika,
-  dodajDonacijo, // Dodaj novo funkcijo
-  // Add other functions if needed
+  dodajDonacijo, 
+  
 };
 
 export default apiWithAuth;

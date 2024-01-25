@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Prijava from "./Prijava";
 import NesrecaForm from "./NesrecaForm";
-import VsiNesreci from "./VsiNesreci"; // New component for displaying all accidents
+import VsiNesreci from "./VsiNesreci"; 
 import apiWithAuth from "../../services/api";
 import { Button } from "@mui/material";
 
@@ -12,7 +12,7 @@ const Administrator = () => {
 
   useEffect(() => {
     if (jePrijavljen) {
-      // Fetch all accidents when the administrator is logged in
+      
       const fetchData = async () => {
         try {
           const nesrece = await apiWithAuth.api.get("/nesrece/nesrece");

@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://localhost:8080/api/v1/uporabniki", // Adjust the base URL accordingly
+    baseURL: "http://localhost:8080/api/v1/uporabniki", 
     timeout: 30000,
     headers: {
         "Content-Type": "application/json",
@@ -24,8 +24,6 @@ class AuthServicesUser {
             if (response.status === 200) {
                 const userData = response.data;
 
-                // Successful login
-                // Save user data to sessionStorage
                 sessionStorage.setItem("userId", userData.id);
                 sessionStorage.setItem("uporabniskoIme", userData.uporabniskoIme);
                 sessionStorage.setItem("geslo", userData.geslo);

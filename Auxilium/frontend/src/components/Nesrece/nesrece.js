@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Paper, Typography, Button, TextField } from "@mui/material";
 import axios from 'axios';
+import auxImage from '../../assets/aux12.png';  
 
 const NesreceList1 = ({ nesrece }) => {
   const [donationAmount, setDonationAmount] = useState(0);
@@ -12,10 +13,9 @@ const NesreceList1 = ({ nesrece }) => {
       });
 
       if (response.status === 200) {
-        console.log(response.data); // Display success message
-        // Optionally, you can add logic to update the UI or show a confirmation message.
+        console.log(response.data);
       } else {
-        console.error(response.data); // Handle error response
+        console.error(response.data); 
       }
     } catch (error) {
       console.error('Napaka pri donaciji:', error);
@@ -37,25 +37,27 @@ const NesreceList1 = ({ nesrece }) => {
         </Paper>
       ))}
 
-      <div style={{ marginTop: "16px", position: "relative", textAlign: "center" }}>
-        <div style={{ borderBottom: "4px solid", background: "linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)", position: "absolute", width: "100%" }}></div>
-        <Typography variant="h5" style={{ backgroundColor: "black", color: "white", padding: "0 8px", position: "absolute", top: "-10px", display: "inline-block", borderRadius: "8px" }}>Doniraj</Typography>
+      <div style={{ marginTop: "16px", textAlign: "center", }}>
+        
+        <img src={auxImage} alt="Aux Image" style={{ width: "200px", borderRadius: "8px", }} />
       </div>
 
-      <div style={{marginTop: "40px", padding: "10px 0", textAlign: "center" }}>
+      <div style={{ marginTop: "40px", padding: "10px 0", textAlign: "center", backgroundColor: "lightblue", borderRadius: "8px", }}>
+        <Typography variant="h5" style={{ color: "black", fontWeight: "bold", marginBottom: "8px" }}>DONIRAJ</Typography>
+
         <TextField
           label="Znesek donacije"
           variant="outlined"
           type="number"
           value={donationAmount}
           onChange={(e) => setDonationAmount(e.target.value)}
-          style={{ marginTop: "16px" }}
+          style={{ marginTop: "16px", marginRight: "8px" }}
         />
 
         <Button
           variant="contained"
           color="primary"
-          style={{ marginTop: "25px", marginLeft: "30px", backgroundImage: "linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)", color: "white", fontWeight: "bold" }}
+          style={{ marginTop: "16px", backgroundImage: "linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)", color: "white", fontWeight: "bold", padding: "10px 20px", borderRadius: "8px" }}
           onClick={handleDonation}
         >
           تَبَرَّعَ - doniraj

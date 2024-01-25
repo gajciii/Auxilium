@@ -16,11 +16,11 @@ const login = async (credentials) => {
         
         console.log("Odgovor po prijavi:", response);
 
-        // Preveri, ali odgovor vsebuje veljaven adminId
+ 
         if (response.data !== null && response.data !== "-1") {
             const adminId = response.data;
             
-            // Shranite adminId v Local Storage
+      
             localStorage.setItem("authToken", adminId);
             
             console.log("adminId shranjen v Local Storage:", localStorage.getItem("adminId"));

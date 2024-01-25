@@ -15,12 +15,17 @@ const NesreceList1 = ({ nesrece }) => {
           <Typography variant="h6">Datum: {nesreca.datum}</Typography>
           <Typography variant="body1">Lokacija: {nesreca.lokacija}</Typography>
           <Typography variant="body1">Opis: {nesreca.opis}</Typography>
-          <Button variant="contained" color="primary" style={{ marginTop: "16px" }}>
-          تَبَرَّعَ - doniraj
-          </Button>
+
         </Paper>
       ))}
+        
+    <Button variant="contained" color="primary" style={{ marginTop: "16px" }}>
+    تَبَرَّعَ - doniraj
+    </Button>
+
     </div>
+
+
   );
 };
 

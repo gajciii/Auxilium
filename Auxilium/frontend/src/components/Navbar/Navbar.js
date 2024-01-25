@@ -9,7 +9,7 @@ const NavigationBar = () => {
           <Link to="/administrator">Administrator</Link>
         </li>
         <li>
-          <Link to="/dashboard">Uporabnik</Link>
+          <Link to="/login">Uporabnik</Link>
         </li>
       </ul>
     </nav>

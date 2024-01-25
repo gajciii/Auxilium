@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-import { TextField, Button } from '@mui/material';
-=======
 import ProfileService from '../../services/ProfileService';
->>>>>>> ce1bce4f3fc399a46a9b39be002963a21e9bc6cf
+import { TextField, Button } from '@mui/material';
 
 const ProfilUporabnik = () => {
     const [user, setUser] = useState({
@@ -23,13 +20,8 @@ const ProfilUporabnik = () => {
 
     const fetchUserProfile = async (userId) => {
         try {
-<<<<<<< HEAD
-            const response = await axios.get(`http://localhost:8080/api/v1/uporabniki/${userId}`);
-            setUser(response.data);
-=======
             const userData = await ProfileService.getUserProfile(userId);
             setUser(userData);
->>>>>>> ce1bce4f3fc399a46a9b39be002963a21e9bc6cf
         } catch (error) {
             console.error('Error fetching user data:', error.message);
         }
@@ -41,26 +33,7 @@ const ProfilUporabnik = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-<<<<<<< HEAD
-
-        try {
-            const response = await axios.put(`http://localhost:8080/api/v1/uporabniki/${user.id}`, user);
-            const updatedUser = response.data;
-            setUser(updatedUser);
-
-            console.log('User updated successfully:', updatedUser);
-        } catch (error) {
-            console.error('Error updating user:', error.message);
-        }
-    }
-
-    const handleLogout = () => {
-        sessionStorage.removeItem('userId');
-        sessionStorage.removeItem('user');
-        navigate('/login');
-=======
         handleProfileUpdate();
->>>>>>> ce1bce4f3fc399a46a9b39be002963a21e9bc6cf
     };
 
     const handleProfileUpdate = async () => {

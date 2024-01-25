@@ -1,5 +1,6 @@
 // UporabnikRegister.js
 import React, { useState } from 'react';
+import { Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import UserService from '../../services/UserService';
 
@@ -21,11 +22,11 @@ const UporabnikRegister = () => {
                 priimek,
                 email,
                 naslov,
-            });
+            }, { withCredentials: true });
 
             if (response.status === 200) {
                 alert(response.data);
-                navigate('/prijava');
+                navigate('/login');
             } else {
                 alert(response.data);
             }
@@ -38,57 +39,47 @@ const UporabnikRegister = () => {
         <div>
             <h2>Registracija</h2>
             <form>
-                <div>
-                    <label>Uporabniško ime:</label>
-                    <input
-                        type="text"
-                        value={uporabniskoIme}
-                        onChange={(e) => setUporabniskoIme(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Geslo:</label>
-                    <input
-                        type="password"
-                        value={geslo}
-                        onChange={(e) => setGeslo(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Ime:</label>
-                    <input
-                        type="text"
-                        value={ime}
-                        onChange={(e) => setIme(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Priimek:</label>
-                    <input
-                        type="text"
-                        value={priimek}
-                        onChange={(e) => setPriimek(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Naslov:</label>
-                    <input
-                        type="text"
-                        value={naslov}
-                        onChange={(e) => setNaslov(e.target.value)}
-                    />
-                </div>
-                <button type="button" onClick={handleRegistracija}>
+                <TextField
+                    label="Uporabniško ime"
+                    variant="outlined"
+                    value={uporabniskoIme}
+                    onChange={(e) => setUporabniskoIme(e.target.value)}
+                /><br />
+                <TextField
+                    label="Geslo"
+                    variant="outlined"
+                    type="password"
+                    value={geslo}
+                    onChange={(e) => setGeslo(e.target.value)}
+                /><br />
+                <TextField
+                    label="Ime"
+                    variant="outlined"
+                    value={ime}
+                    onChange={(e) => setIme(e.target.value)}
+                /><br />
+                <TextField
+                    label="Priimek"
+                    variant="outlined"
+                    value={priimek}
+                    onChange={(e) => setPriimek(e.target.value)}
+                /><br />
+                <TextField
+                    label="Email"
+                    variant="outlined"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                /><br />
+                <TextField
+                    label="Naslov"
+                    variant="outlined"
+                    value={naslov}
+                    onChange={(e) => setNaslov(e.target.value)}
+                /><br />
+                <Button variant="contained" onClick={handleRegistracija}>
                     Registriraj se
-                </button>
+                </Button>
             </form>
         </div>
     );

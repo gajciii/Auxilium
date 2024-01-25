@@ -11,7 +11,7 @@ export default function Routing() {
     return (
         <Routes>
             <Route path="/administrator" element={<Administrator />} />
-            <Route path="/dashboard" element={<Prijava />} />
+            <Route path="/login" element={<Prijava />} />
             <Route path="/registracija" element={<UporabnikRegister />} />
             <Route path="/profil-uporabnik" element={<ProfilUporabnik />} /> {/* New route for ProfilUporabnik */}
             <Route path="*" element={<PageNotFound />} />

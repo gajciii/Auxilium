@@ -48,11 +48,23 @@ const izbrisiNesreco = async (id) => {
   }
 };
 
+const registrirajUporabnika = async (novUporabnik) => {
+  try {
+    const response = await api.post("/api/v1/uporabniki/registracija", novUporabnik);
+    return response.data;
+  } catch (error) {
+    console.error("Error in registrirajUporabnika:", error);
+    throw error;
+  }
+};
+
+
 const apiWithAuth = {
   api,
   dodajNesreco,
   urediNesreco,
   izbrisiNesreco,
+  registrirajUporabnika, // Dodaj novo funkcijo
   // Add other functions if needed
 };
 

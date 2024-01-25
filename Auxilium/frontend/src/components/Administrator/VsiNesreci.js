@@ -43,7 +43,7 @@ const VsiNesreci = ({ nesrece }) => {
 
   return (
     <div>
-      <h2>Vse nesreče</h2>
+      <h2>VSE NESREČE</h2>
       {nesrece.map((nesreca) => (
         <Paper key={nesreca.id} elevation={3} style={{ padding: "16px", marginBottom: "16px", backgroundColor: "black", color: "white" }}>
           <Typography variant="h6">Datum: {nesreca.datum}</Typography>
@@ -57,7 +57,7 @@ const VsiNesreci = ({ nesrece }) => {
           )}
           {editMode && editedNesreca.id === nesreca.id && (
             <div>
-              <Typography variant="h5" style={{ marginBottom: "8px" }}>Vnašanje podatkov o nesreči</Typography>
+              <Typography variant="h4" style={{ marginBottom: "8px" }}>Vnašanje podatkov o nesreči</Typography>
               <TextField
                 name="datum"
                 label="Datum"

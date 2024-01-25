@@ -4,6 +4,7 @@ import Prijava from "./Prijava";
 import NesrecaForm from "./NesrecaForm";
 import VsiNesreci from "./VsiNesreci"; // New component for displaying all accidents
 import apiWithAuth from "../../services/api";
+import { Button } from "@mui/material";
 
 const Administrator = () => {
   const [jePrijavljen, setJePrijavljen] = useState(localStorage.getItem("authToken") ? true : false);
@@ -42,8 +43,15 @@ const Administrator = () => {
         <div>
           
           <NesrecaForm />
-          <button onClick={obdelajOdjava}>Odjava</button>
-          <VsiNesreci nesrece={vseNesrece} /> {/* Display all accidents */}
+
+          <VsiNesreci nesrece={vseNesrece} /> 
+          <Button
+            variant="contained"
+            style={{ backgroundColor: "red", color: "white", fontSize: "16px", borderRadius: "4px", padding: "10px 20px", marginTop: "20px" }}
+            onClick={obdelajOdjava}
+          >
+            Odjava
+          </Button>
         </div>
       )}
     </div>

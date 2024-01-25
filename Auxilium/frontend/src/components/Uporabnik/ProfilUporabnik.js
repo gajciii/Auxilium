@@ -45,6 +45,15 @@ const ProfilUporabnik = () => {
             console.error('Error updating profile:', error.message);
         }
     };
+
+    const handleLogout = () => {
+        // Add your logout logic here
+        // For example, clear the user data from sessionStorage and navigate to the login page
+        sessionStorage.clear();
+        navigate('/login'); // Update with your login page route
+    };
+
+
     return (
         <div style={formContainerStyle}>
             <h1 style={pageTitleStyle}>Uredi Profil</h1>
@@ -103,6 +112,9 @@ const ProfilUporabnik = () => {
                     Shrani
                 </Button>
             </form>
+            <Button onClick={handleLogout} variant="contained" style={logoutButtonStyle}>
+                تسجيل الخروج
+            </Button>
         </div>
     );
 }
@@ -131,5 +143,16 @@ const submitButtonStyle = {
     borderRadius: "8px",
     cursor: "pointer",
 };
+
+const logoutButtonStyle = {
+    marginTop: "20px", // Adjust the margin as needed
+    padding: "10px 15px",
+    fontSize: "16px",
+    backgroundColor: "#dc3545", // Red color for logout button
+    color: "#fff",
+    borderRadius: "8px",
+    cursor: "pointer",
+};
+
 
 export default ProfilUporabnik;

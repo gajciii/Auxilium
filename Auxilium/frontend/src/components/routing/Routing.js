@@ -7,6 +7,7 @@ import Prijava from "../Uporabnik/UporabnikPrijava";
 import UporabnikRegister from '../Uporabnik/UporabnikRegister';
 import UserEditForm from '../Uporabnik/ProfilUporabnik'; 
 import NavigationBar from "../Navbar/Navbar";
+import NesreceList from "../Nesrece/PrikazNesrec";
 
 export default function Routing() {
     return (
@@ -17,7 +18,8 @@ export default function Routing() {
             <Route path="/administrator" element={<Administrator />} />
             <Route path="/login" element={<Prijava />} />
             <Route path="/registracija" element={<UporabnikRegister />} />
-            <Route path="/profil-uporabnik" element={<UserEditForm />} /> {/* New route for ProfilUporabnik */}
+            <Route path="/profil-uporabnik" element={<UserEditForm />} /> 
+            <Route path="/nesrece" element={<NesreceList />} /> 
             <Route path="*" element={<PageNotFound />} />
         </Routes>
 

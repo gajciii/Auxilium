@@ -8,11 +8,11 @@ const NesrecaForm = ({ refreshNesrece }) => {
   const [datum, setDatum] = useState("");
   const [lokacija, setLokacija] = useState("");
   const [opis, setOpis] = useState("");
-  const [selectedOskodovanec, setSelectedOskodovanec] = useState(""); // new state for selected oskodovanec
+  const [selectedOskodovanec, setSelectedOskodovanec] = useState(""); 
   const [oskodovanci, setOskodovanci] = useState([]);
 
   useEffect(() => {
-    // Fetch the list of oskodovanci when the component mounts
+
     const fetchOskodovanci = async () => {
       try {
         const response = await apiWithAuth.api.get("/oskodovanci/oskodovanci");
@@ -27,7 +27,7 @@ const NesrecaForm = ({ refreshNesrece }) => {
 
   const handleSubmit = async () => {
     try {
-      // If an oskodovanec is selected, associate it with the nesreca
+
       const oskodovanecId = selectedOskodovanec ? selectedOskodovanec.id : null;
 
       const response = await apiWithAuth.api.post("/nesrece/dodajNesreco", {
@@ -37,9 +37,8 @@ const NesrecaForm = ({ refreshNesrece }) => {
         oskodovanecId: oskodovanecId,
       });
 
-      console.log(response); // Handle successful addition
+      console.log(response); 
 
-      // Refresh the list of nesrece after the operation
       refreshNesrece();
     } catch (error) {
       console.error("Napaka pri dodajanju nesreče:", error.message);

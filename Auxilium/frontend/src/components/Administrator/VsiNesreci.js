@@ -22,7 +22,6 @@ const VsiNesreci = ({ nesrece }) => {
       await apiWithAuth.urediNesreco(editedNesreca.id, editedNesreca);
       setEditMode(false);
       setEditedNesreca({});
-      // You might want to refresh the list of accidents after editing
     } catch (error) {
       console.error("Error editing accident:", error.message);
     }
@@ -31,7 +30,6 @@ const VsiNesreci = ({ nesrece }) => {
   const handleDelete = async (id) => {
     try {
       await apiWithAuth.izbrisiNesreco(id);
-      // You might want to refresh the list of accidents after deletion
     } catch (error) {
       console.error("Error deleting accident:", error.message);
     }

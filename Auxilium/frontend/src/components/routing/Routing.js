@@ -15,11 +15,12 @@ export default function Routing() {
         <NavigationBar />
 
         <Routes>
+            <Route path="/nesrece" element={<NesreceList />} /> 
             <Route path="/administrator" element={<Administrator />} />
             <Route path="/login" element={<Prijava />} />
             <Route path="/registracija" element={<UporabnikRegister />} />
             <Route path="/profil-uporabnik" element={<UserEditForm />} /> 
-            <Route path="/nesrece" element={<NesreceList />} /> 
+           
             <Route path="*" element={<PageNotFound />} />
         </Routes>
 

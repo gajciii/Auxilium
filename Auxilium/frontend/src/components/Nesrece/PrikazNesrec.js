@@ -8,7 +8,7 @@ const NesreceList = () => {
   const [vseNesrece, setVseNesrece] = useState([]);
 
   useEffect(() => {
-    // Fetch all accidents
+    
     const fetchData = async () => {
       try {
         const nesrece = await apiWithAuth.api.get("/nesrece/nesrece");
@@ -23,7 +23,7 @@ const NesreceList = () => {
 
   return (
     <div>
-      <p>Uporabnik prijavljen</p>
+      
       <NesreceList1 nesrece={vseNesrece} />
     </div>
   );

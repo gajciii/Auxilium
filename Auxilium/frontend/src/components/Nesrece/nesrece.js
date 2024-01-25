@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField } from "@mui/material";
+import { Paper, Typography, Button } from "@mui/material";
 
 const NesreceList1 = ({ nesrece }) => {
   console.log("Nesrece from props:", nesrece);
@@ -9,36 +9,17 @@ const NesreceList1 = ({ nesrece }) => {
 
   return (
     <div>
-      <h2>Vse nesreče</h2>
-      <ul>
-        {nesrece.map((nesreca) => (
-          <li key={nesreca.id}>
-            <p>Datum: {nesreca.datum}</p>
-            <p>Lokacija: {nesreca.lokacija}</p>
-            <p>Opis: {nesreca.opis}</p>
-            <div>
-              <TextField
-                name="datum"
-                label="Datum"
-                value={nesreca.datum}
-                disabled
-              />
-              <TextField
-                name="lokacija"
-                label="Lokacija"
-                value={nesreca.lokacija}
-                disabled
-              />
-              <TextField
-                name="opis"
-                label="Opis"
-                value={nesreca.opis}
-                disabled
-              />
-            </div>
-          </li>
-        ))}
-      </ul>
+      <h2>VSE NESREČE</h2>
+      {nesrece.map((nesreca) => (
+        <Paper key={nesreca.id} elevation={3} style={{ padding: "16px", marginBottom: "16px", backgroundColor: "black", color: "white" }}>
+          <Typography variant="h6">Datum: {nesreca.datum}</Typography>
+          <Typography variant="body1">Lokacija: {nesreca.lokacija}</Typography>
+          <Typography variant="body1">Opis: {nesreca.opis}</Typography>
+          <Button variant="contained" color="primary" style={{ marginTop: "16px" }}>
+          تَبَرَّعَ - doniraj
+          </Button>
+        </Paper>
+      ))}
     </div>
   );
 };

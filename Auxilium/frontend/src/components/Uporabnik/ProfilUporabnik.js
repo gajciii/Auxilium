@@ -41,7 +41,6 @@ const ProfilUporabnik = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-<<<<<<< HEAD
 
         try {
             const response = await axios.put(`http://localhost:8080/api/v1/uporabniki/${user.id}`, user);
@@ -58,9 +57,6 @@ const ProfilUporabnik = () => {
         sessionStorage.removeItem('userId');
         sessionStorage.removeItem('user');
         navigate('/login');
-=======
-        handleProfileUpdate();
->>>>>>> ce1bce4f3fc399a46a9b39be002963a21e9bc6cf
     };
 
     const handleProfileUpdate = async () => {

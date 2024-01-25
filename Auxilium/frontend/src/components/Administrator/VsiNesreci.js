@@ -1,6 +1,5 @@
-// Administrator/VsiNesreci.js
 import React, { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Typography, Paper } from "@mui/material";
 import apiWithAuth from "../../services/api";
 
 const VsiNesreci = ({ nesrece }) => {
@@ -45,45 +44,47 @@ const VsiNesreci = ({ nesrece }) => {
   return (
     <div>
       <h2>Vse nesreče</h2>
-      <ul>
-        {nesrece.map((nesreca) => (
-          <li key={nesreca.id}>
-            <p>Datum: {nesreca.datum}</p>
-            <p>Lokacija: {nesreca.lokacija}</p>
-            <p>Opis: {nesreca.opis}</p>
-            {!editMode && (
-              <div>
-                <Button onClick={() => handleEdit(nesreca)}>Uredi</Button>
-                <Button onClick={() => handleDelete(nesreca.id)}>Izbriši</Button>
-              </div>
-            )}
-            {editMode && editedNesreca.id === nesreca.id && (
-              <div>
-                <TextField
-                  name="datum"
-                  label="Datum"
-                  value={editedNesreca.datum}
-                  onChange={handleChange}
-                />
-                <TextField
-                  name="lokacija"
-                  label="Lokacija"
-                  value={editedNesreca.lokacija}
-                  onChange={handleChange}
-                />
-                <TextField
-                  name="opis"
-                  label="Opis"
-                  value={editedNesreca.opis}
-                  onChange={handleChange}
-                />
-                <Button onClick={handleSaveEdit}>Shrani</Button>
-                <Button onClick={handleCancelEdit}>Prekliči</Button>
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
+      {nesrece.map((nesreca) => (
+        <Paper key={nesreca.id} elevation={3} style={{ padding: "16px", marginBottom: "16px", backgroundColor: "black", color: "white" }}>
+          <Typography variant="h6">Datum: {nesreca.datum}</Typography>
+          <Typography variant="body1">Lokacija: {nesreca.lokacija}</Typography>
+          <Typography variant="body1">Opis: {nesreca.opis}</Typography>
+          {!editMode && (
+            <div>
+              <Button onClick={() => handleEdit(nesreca)}>Uredi</Button>
+              <Button onClick={() => handleDelete(nesreca.id)}>Izbriši</Button>
+            </div>
+          )}
+          {editMode && editedNesreca.id === nesreca.id && (
+            <div>
+              <Typography variant="h5" style={{ marginBottom: "8px" }}>Vnašanje podatkov o nesreči</Typography>
+              <TextField
+                name="datum"
+                label="Datum"
+                value={editedNesreca.datum}
+                onChange={handleChange}
+                InputProps={{ style: { color: "white", borderBottom: "2px solid blue" } }}
+              />
+              <TextField
+                name="lokacija"
+                label="Lokacija"
+                value={editedNesreca.lokacija}
+                onChange={handleChange}
+                InputProps={{ style: { color: "white", borderBottom: "2px solid blue" } }}
+              />
+              <TextField
+                name="opis"
+                label="Opis"
+                value={editedNesreca.opis}
+                onChange={handleChange}
+                InputProps={{ style: { color: "white", borderBottom: "2px solid blue" } }}
+              />
+              <Button onClick={handleSaveEdit}>Shrani</Button>
+              <Button onClick={handleCancelEdit}>Prekliči</Button>
+            </div>
+          )}
+        </Paper>
+      ))}
     </div>
   );
 };

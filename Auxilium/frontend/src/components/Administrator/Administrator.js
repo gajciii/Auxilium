@@ -40,7 +40,7 @@ const Administrator = () => {
         <Prijava onPrijava={obdelajPrijava} />
       ) : (
         <div>
-          <p>Uporabnik prijavljen</p>
+          
           <NesrecaForm />
           <button onClick={obdelajOdjava}>Odjava</button>
           <VsiNesreci nesrece={vseNesrece} /> {/* Display all accidents */}

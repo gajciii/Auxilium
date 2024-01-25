@@ -5,10 +5,10 @@ const NavigationBar = () => {
   return (
     <nav style={navbarStyle}>
       <div style={containerStyle}>
+      <Link to="/nesrece" style={linkStyle}>Nesreče</Link>
         <Link to="/administrator" style={linkStyle}>Sem administrator</Link>
         <Link to="/login" style={linkStyle}>Sem uporabnik</Link>
         <Link to="/registracija" style={linkStyle}>Registracija</Link>
-        <Link to="/nesrece" style={linkStyle}>Nesreče</Link>
       </div>
     </nav>
   );

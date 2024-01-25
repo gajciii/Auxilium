@@ -1,37 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ProfileService from '../../services/ProfileService';
 
 const ProfilUporabnik = () => {
     const [user, setUser] = useState({
-        ime: '',
-        priimek: '',
-        uporabniskoIme: '',
-        geslo: '',
-        naslov: '',
-        email: ''
+        // ... initial user data
     });
 
-    const navigate = useNavigate(); // useNavigate hook for navigation
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // Retrieve user ID from sessionStorage
         const userId = sessionStorage.getItem('userId');
 
-        // Fetch user data using the user ID
         if (userId) {
-            fetchUserData(userId);
+            fetchUserProfile(userId);
         }
     }, []);
 
-    const fetchUserData = async (userId) => {
+    const fetchUserProfile = async (userId) => {
         try {
-            // Fetch user data from the server using the user ID
-            const response = await axios.get(`http://localhost:8080/api/v1/uporabniki/${userId}`);
-
-
-            // Set the user state with the retrieved user data
-            setUser(response.data);
+            const userData = await ProfileService.getUserProfile(userId);
+            setUser(userData);
         } catch (error) {
             console.error('Error fetching user data:', error.message);
         }
@@ -39,37 +28,22 @@ const ProfilUporabnik = () => {
 
     const handleChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
-    }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        try {
-            // Send updated user details to the server using a PUT request
-            const response = await axios.put(`http://localhost:8080/api/v1/uporabniki/${user.id}`, user);
-
-
-            // Assuming the server returns the updated user object
-            const updatedUser = response.data;
-
-            // Optionally, you can update the state with the response from the server
-            setUser(updatedUser);
-
-            console.log('User updated successfully:', updatedUser);
-        } catch (error) {
-            console.error('Error updating user:', error.message);
-        }
-    }
-
-    const handleLogout = () => {
-        // Clear user data from sessionStorage
-        sessionStorage.removeItem('userId');
-        sessionStorage.removeItem('user');
-
-        // Redirect to the login page or another desired route using navigate
-        navigate('/login');
+        handleProfileUpdate();
     };
 
+    const handleProfileUpdate = async () => {
+        try {
+            const userId = sessionStorage.getItem('userId');
+            await ProfileService.updateUserProfile(userId, user);
+            console.log('Profile updated successfully!');
+        } catch (error) {
+            console.error('Error updating profile:', error.message);
+        }
+    };
     return (
         <div>
             <h1>Uredi Profil</h1>

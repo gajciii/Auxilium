@@ -2,14 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const NavigationBar = () => {
+  const isLoggedIn = sessionStorage.getItem('userId');
+  const isAdminLoggedIn = localStorage.getItem('authToken');
   return (
     <nav style={navbarStyle}>
       <div style={containerStyle}>
-      <Link to="/nesrece" style={linkStyle}>Nesreče</Link>
-      <Link to="/profil-uporabnik" style={linkStyle}>Profil</Link>
-        <Link to="/administrator" style={linkStyle}>Sem administrator</Link>
-        <Link to="/login" style={linkStyle}>Sem uporabnik</Link>
-        <Link to="/registracija" style={linkStyle}>Registracija</Link>
+        <Link to="/nesrece" style={linkStyle}>Nesreče</Link>
+        {(isLoggedIn && !isAdminLoggedIn) && <Link to="/profil-uporabnik" style={linkStyle}>Profil</Link>}
+
+
+        {!isLoggedIn && <Link to="/administrator" style={linkStyle}>Sem administrator</Link>}
+        {(!isLoggedIn && !isAdminLoggedIn) && <Link to="/login" style={linkStyle}>Sem uporabnik</Link>}
+        {(!isLoggedIn && !isAdminLoggedIn) && <Link to="/registracija" style={linkStyle}>Registracija</Link>}
       </div>
     </nav>
   );
@@ -21,7 +25,7 @@ const navbarStyle = {
 
 const containerStyle = {
   display: "flex",
-  justifyContent: "flex-end", 
+  justifyContent: "flex-end",
   alignItems: "center",
 };
 

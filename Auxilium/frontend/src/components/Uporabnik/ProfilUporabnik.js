@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import { TextField, Button } from '@mui/material';
+=======
+import ProfileService from '../../services/ProfileService';
+>>>>>>> ce1bce4f3fc399a46a9b39be002963a21e9bc6cf
 
 const ProfilUporabnik = () => {
     const [user, setUser] = useState({
-        ime: '',
-        priimek: '',
-        uporabniskoIme: '',
-        geslo: '',
-        naslov: '',
-        email: ''
+        // ... initial user data
     });
 
     const navigate = useNavigate();
@@ -19,14 +17,19 @@ const ProfilUporabnik = () => {
         const userId = sessionStorage.getItem('userId');
 
         if (userId) {
-            fetchUserData(userId);
+            fetchUserProfile(userId);
         }
     }, []);
 
-    const fetchUserData = async (userId) => {
+    const fetchUserProfile = async (userId) => {
         try {
+<<<<<<< HEAD
             const response = await axios.get(`http://localhost:8080/api/v1/uporabniki/${userId}`);
             setUser(response.data);
+=======
+            const userData = await ProfileService.getUserProfile(userId);
+            setUser(userData);
+>>>>>>> ce1bce4f3fc399a46a9b39be002963a21e9bc6cf
         } catch (error) {
             console.error('Error fetching user data:', error.message);
         }
@@ -34,10 +37,11 @@ const ProfilUporabnik = () => {
 
     const handleChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
-    }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+<<<<<<< HEAD
 
         try {
             const response = await axios.put(`http://localhost:8080/api/v1/uporabniki/${user.id}`, user);
@@ -54,8 +58,20 @@ const ProfilUporabnik = () => {
         sessionStorage.removeItem('userId');
         sessionStorage.removeItem('user');
         navigate('/login');
+=======
+        handleProfileUpdate();
+>>>>>>> ce1bce4f3fc399a46a9b39be002963a21e9bc6cf
     };
 
+    const handleProfileUpdate = async () => {
+        try {
+            const userId = sessionStorage.getItem('userId');
+            await ProfileService.updateUserProfile(userId, user);
+            console.log('Profile updated successfully!');
+        } catch (error) {
+            console.error('Error updating profile:', error.message);
+        }
+    };
     return (
         <div style={formContainerStyle}>
             <h1 style={pageTitleStyle}>Uredi Profil</h1>

@@ -149,6 +149,7 @@ public class UporabnikController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/{id}")
     public ResponseEntity<Uporabnik> urediPodatkeUporabnika(@PathVariable Long id, @RequestBody Uporabnik posodobljenUporabnik) {
         Uporabnik obstojecUporabnik = uporabnikDao.findById(id).orElse(null);

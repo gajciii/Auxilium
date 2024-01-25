@@ -58,13 +58,24 @@ const registrirajUporabnika = async (novUporabnik) => {
   }
 };
 
+// Dodaj novo funkcijo za dodajanje donacije
+const dodajDonacijo = async (donacijaData) => {
+  try {
+    const response = await api.post("/uporabniki/dodajDonacijo", donacijaData);
+    return response.data;
+  } catch (error) {
+    console.error("Error in dodajDonacijo:", error);
+    throw error;
+  }
+};
 
 const apiWithAuth = {
   api,
   dodajNesreco,
   urediNesreco,
   izbrisiNesreco,
-  registrirajUporabnika, // Dodaj novo funkcijo
+  registrirajUporabnika,
+  dodajDonacijo, // Dodaj novo funkcijo
   // Add other functions if needed
 };
 

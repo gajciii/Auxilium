@@ -13,6 +13,7 @@ const Prijava = ({ onPrijava }) => {
       });
 
       onPrijava();
+      window.location.reload();
 
     } catch (error) {
       console.error("Napaka pri prijavi:", error.message);

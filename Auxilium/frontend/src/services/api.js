@@ -75,8 +75,8 @@ const apiWithAuth = {
   urediNesreco,
   izbrisiNesreco,
   registrirajUporabnika,
-  dodajDonacijo, 
-  
+  dodajDonacijo,
+
 };
 
 export default apiWithAuth;

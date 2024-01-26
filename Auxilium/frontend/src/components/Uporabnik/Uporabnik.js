@@ -25,6 +25,8 @@ const Uporabnik = () => {
     const handleLogoutClick = () => {
         AuthService.logout();
         console.log("Odjava uspešna!");
+        window.alert("Odjava uspešna!");
+        window.location.reload();
     };
 
     return (

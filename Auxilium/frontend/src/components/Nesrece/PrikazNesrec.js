@@ -8,11 +8,12 @@ const NesreceList = () => {
   const [vseNesrece, setVseNesrece] = useState([]);
 
   useEffect(() => {
-    
+
     const fetchData = async () => {
       try {
         const nesrece = await apiWithAuth.api.get("/nesrece/nesrece");
         setVseNesrece(nesrece.data);
+        console.log(nesrece.data);
       } catch (error) {
         console.error("Error fetching accidents:", error.message);
       }
@@ -23,7 +24,7 @@ const NesreceList = () => {
 
   return (
     <div>
-      
+
       <NesreceList1 nesrece={vseNesrece} />
     </div>
   );

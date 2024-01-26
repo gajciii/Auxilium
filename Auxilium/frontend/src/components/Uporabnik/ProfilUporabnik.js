@@ -5,7 +5,7 @@ import { TextField, Button } from '@mui/material';
 
 const ProfilUporabnik = () => {
     const [user, setUser] = useState({
-       
+
     });
 
     const navigate = useNavigate();
@@ -41,15 +41,17 @@ const ProfilUporabnik = () => {
             const userId = sessionStorage.getItem('userId');
             await ProfileService.updateUserProfile(userId, user);
             console.log('Profile updated successfully!');
+            window.location.reload();
         } catch (error) {
             console.error('Error updating profile:', error.message);
         }
     };
 
     const handleLogout = () => {
-        
+
         sessionStorage.clear();
         navigate('/login');
+        window.location.reload();
     };
 
 
@@ -135,7 +137,7 @@ const inputStyle = {
 };
 
 const submitButtonStyle = {
-    padding: "10px 15px", 
+    padding: "10px 15px",
     fontSize: "16px",
     backgroundColor: "#007bff",
     color: "#fff",
@@ -147,7 +149,7 @@ const logoutButtonStyle = {
     marginTop: "20px",
     padding: "10px 15px",
     fontSize: "16px",
-    backgroundColor: "#dc3545", 
+    backgroundColor: "#dc3545",
     color: "#fff",
     borderRadius: "8px",
     cursor: "pointer",

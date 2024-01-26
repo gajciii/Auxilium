@@ -21,6 +21,7 @@ const VsiNesreci = ({ nesrece }) => {
       await apiWithAuth.urediNesreco(editedNesreca.id, editedNesreca);
       setEditMode(false);
       setEditedNesreca({});
+      window.location.reload();
     } catch (error) {
       console.error("Error editing accident:", error.message);
     }
@@ -29,6 +30,7 @@ const VsiNesreci = ({ nesrece }) => {
   const handleDelete = async (id) => {
     try {
       await apiWithAuth.izbrisiNesreco(id);
+      window.location.reload();
     } catch (error) {
       console.error("Error deleting accident:", error.message);
     }

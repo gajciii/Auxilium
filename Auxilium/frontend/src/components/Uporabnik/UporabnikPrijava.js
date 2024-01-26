@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import AuthServicesUser from '../../services/AuthServiceUser.js';
 
 const Prijava = () => {
@@ -13,13 +13,14 @@ const Prijava = () => {
 
             if (loggedIn) {
                 navigate('/profil-uporabnik');
+                window.location.reload();
             } else {
-               
+
                 alert('Login failed. Please check your credentials.');
             }
         } catch (error) {
             console.error('Error during login:', error.message);
-            
+
         }
     };
 
